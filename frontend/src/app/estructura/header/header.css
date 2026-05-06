@@ -1,0 +1,26 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+
+}
+
+.navbar-brand:hover {
+    animation: neonGlow 1.5s infinite alternate;
+}
+
+@keyframes neonGlow {
+    from {
+        text-shadow: 
+            0 0 5px #0400ff52,
+            0 0 10px #0400ff83,
+            0 0 20px #0400ff;
+    }
+    to {
+        text-shadow: 
+            0 0 10px #ffffff,
+            0 0 20px #ffffff,
+            0 0 40px #ffffff;
+    }
+}

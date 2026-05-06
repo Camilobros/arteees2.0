@@ -1,0 +1,92 @@
+<!-- ================= MIGA DE PAN ================= -->
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item active">Clientes</li>
+    </ol>
+</nav>
+
+<!-- ================= TÍTULO ================= -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Gestión de Clientes</h2>
+    <button class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Nuevo Cliente
+    </button>
+</div>
+
+<!-- ================= BUSCADOR ================= -->
+<div class="card shadow-sm p-3 mb-4">
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Buscar cliente...">
+        </div>
+        <div class="col-md-3">
+            <select class="form-select">
+                <option>Filtrar por estado</option>
+                <option>Activo</option>
+                <option>Inactivo</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-secondary w-100">Buscar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= TABLA DE CLIENTES ================= -->
+<div class="card shadow-sm p-3">
+    <h5 class="mb-3">Lista de Clientes</h5>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Ana López</td>
+                    <td>ana@email.com</td>
+                    <td>3001234567</td>
+                    <td><span class="badge bg-success">Activo</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>Juan Pérez</td>
+                    <td>juan@email.com</td>
+                    <td>3019876543</td>
+                    <td><span class="badge bg-secondary">Inactivo</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>Camilo Díaz</td>
+                    <td>camilo@email.com</td>
+                    <td>3025555555</td>
+                    <td><span class="badge bg-success">Activo</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+
+        body {
+            background-color: #ffffff;
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #3f51b5, #6a1b9a);
+            min-height: 100vh;
+            position: fixed;
+        }
+        .sidebar a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: 1s;
+            margin-top: 17px;
+        }
+        .sidebar a:hover {
+            background-color: rgba(246, 246, 246, 0.1);
+            border-radius: 100px;
+        }
+        .offcanvas {
+    background: linear-gradient(180deg, #3b3b98, #5f27cd);
+    color: rgb(255, 255, 255);
+}
+
+.offcanvas{
+    padding: 0;
+}
+
+.offcanvas-header{
+    width: 100%;
+    margin: 0;
+}
+.nav-link{
+    color: rgb(255, 255, 255);
+    font-size: 1.3rem;
+}
+.nav-link:hover{
+    color: #00eaff;
+    background-color: #ffffff7e;
+}
+.titulo-menu{
+font-size: 2rem;
+color: white;
+}

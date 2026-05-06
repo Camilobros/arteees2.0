@@ -1,0 +1,78 @@
+<!-- ================= MIGA DE PAN ================= -->
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+</nav>
+
+<!-- ================= TÍTULO ================= -->
+<h2 class="text-primary mb-4">Resumen General</h2>
+
+<!-- ================= CARDS ================= -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm p-3">
+            <h5><i class="bi bi-brush text-primary"></i> Productos</h5>
+            <p class="fs-4">120</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm p-3">
+            <h5><i class="bi bi-cart text-success"></i> Ventas</h5>
+            <p class="fs-4">85</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm p-3">
+            <h5><i class="bi bi-people text-danger"></i> Clientes</h5>
+            <p class="fs-4">60</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================= GRÁFICO ================= -->
+<div class="card mb-4 shadow-sm p-3">
+    <h5>Ventas Mensuales</h5>
+    <canvas id="ventasChart"></canvas>
+</div>
+
+<!-- ================= TABLA ================= -->
+<div class="card shadow-sm p-3">
+    <h5>Últimas Ventas</h5>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Ana López</td>
+                    <td>Pintura Acrílica</td>
+                    <td>$120</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Juan Pérez</td>
+                    <td>Cuaderno Sketch</td>
+                    <td>$45</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Camilo Díaz</td>
+                    <td>Marcadores</td>
+                    <td>$70</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

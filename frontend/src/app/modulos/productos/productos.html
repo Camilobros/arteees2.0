@@ -1,0 +1,135 @@
+<!-- ================= MIGA DE PAN ================= -->
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+        <li class="breadcrumb-item active">Productos</li>
+    </ol>
+</nav>
+
+<!-- ================= TÍTULO ================= -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Gestión de Productos</h2>
+    <button class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Nuevo Producto
+    </button>
+</div>
+
+<!-- ================= FILTROS ================= -->
+<div class="card shadow-sm p-3 mb-4">
+    <div class="row">
+        <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="Buscar producto...">
+        </div>
+
+        <div class="col-md-3">
+            <select class="form-select">
+                <option>Categoría</option>
+                <option>Pinturas</option>
+                <option>Cuadernos</option>
+                <option>Herramientas</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <input type="number" class="form-control" placeholder="Precio min">
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-secondary w-100">Filtrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================= TARJETAS DE PRODUCTOS ================= -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <img src="https://th.bing.com/th/id/R.84ed1001b32bfc8d37497f7ba31248fc?rik=a%2bbeLF2TvL1BzQ&pid=ImgRaw&r=300x200" class="card-img-top" alt="producto">
+            <div class="card-body">
+                <h5 class="card-title">Pintura Acrílica</h5>
+                <p class="card-text">$120</p>
+                <span class="badge bg-primary">Arte</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.z_9n8k6AeoOFB8FWHbeStQAAAA?rs=1&pid=ImgDetMain&o=7&rm=300x200" class="card-img-top" alt="producto">
+            <div class="card-body">
+                <h5 class="card-title">Cuaderno Sketch</h5>
+                <p class="card-text">$45</p>
+                <span class="badge bg-success">Papelería</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <img src="https://static.wixstatic.com/media/b6dea1_1a723d7ca8514b069b3ca67214d0f9e4~mv2.jpg/v1/fill/w_980,h_1470,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b6dea1_1a723d7ca8514b069b3ca67214d0f9e4~mv2.jpg300x200" class="card-img-top" alt="producto">
+            <div class="card-body">
+                <h5 class="card-title">Marcadores Pro</h5>
+                <p class="card-text">$70</p>
+                <span class="badge bg-warning">Herramientas</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= TABLA ================= -->
+<div class="card shadow-sm p-3">
+    <h5 class="mb-3">Inventario</h5>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th>#</th>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Pintura Acrílica</td>
+                    <td>Arte</td>
+                    <td>$120</td>
+                    <td>30</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>Cuaderno Sketch</td>
+                    <td>Papelería</td>
+                    <td>$45</td>
+                    <td>50</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>Marcadores Pro</td>
+                    <td>Herramientas</td>
+                    <td>$70</td>
+                    <td>20</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

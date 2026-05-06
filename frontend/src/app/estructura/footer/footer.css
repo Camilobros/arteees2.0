@@ -1,0 +1,25 @@
+.css-footer{
+    font-size: 1.4rem;
+    color: #fff;
+    animation: flickerNeon 2s infinite;
+    border: 50px solid #fff;
+}
+
+
+@keyframes flickerNeon {
+
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        color: #fff;
+        text-shadow:
+            0 0 5px #fff,
+            0 0 10px #3f51b5,
+            0 0 20px #3f51b5,
+            0 0 40px #6a1b9a,
+            0 0 80px #6a1b9a;
+    }
+
+    20%, 24%, 55% {
+        color: #222; 
+        text-shadow: none;
+    }
+}

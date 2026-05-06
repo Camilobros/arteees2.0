@@ -1,0 +1,11 @@
+.card {
+    border-radius: 10px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+h2 {
+    font-weight: bold;
+}
