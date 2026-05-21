@@ -1,5 +1,5 @@
 <?php
-    class usuario{
+    class detalle_venta{
         private $conexion;
 
         public function __construct($conexion){
@@ -7,12 +7,10 @@
         }
 
         public function consulta(){
-            $sql = "SELECT u.*, c.nombre AS nombre_cliente, a.nombre AS nombre_artista 
-                    FROM usuario u
-                    LEFT JOIN cliente c ON u.id_cliente = c.id_cliente
-                    LEFT JOIN artista a ON u.id_artista = a.id_artista
-                    ORDER BY u.nombre;";
-            $res = mysqli_query($this->conexion, $sql) or die('no se encontro la tabla usuario');
+            $sql = "SELECT dv.*, o.titulo AS obra FROM detalle_venta dv
+                    INNER JOIN obra o ON dv.id_obra = o.id_obra
+                    ORDER BY dv.id_detalle;";
+            $res = mysqli_query($this->conexion, $sql) or die('no se encontro la tabla detalle_venta');
 
             $vec = [];
 
@@ -24,7 +22,7 @@
         }
 
         public function eliminar($id){
-            $sql = "DELETE FROM usuario WHERE id_usuario = $id";
+            $sql = "DELETE FROM detalle_venta WHERE id_detalle = $id";
             mysqli_query($this->conexion, $sql) or die('no elimino el registro');
 
             $vec = [];
@@ -35,9 +33,8 @@
         }
 
         public function insertar($params){
-            // Nota: id_cliente e id_artista pueden ser NULL, deberás asegurarte de que $params mande "NULL" si no hay valor
-            $sql = "INSERT INTO usuario(nombre, correo, contrasena, rol, id_cliente, id_artista) 
-            VALUES('$params->nombre', '$params->correo', '$params->contrasena', '$params->rol', $params->id_cliente, $params->id_artista)";
+            $sql = "INSERT INTO detalle_venta(cantidad, precio_unitario, id_venta, id_obra) 
+            VALUES($params->cantidad, $params->precio_unitario, $params->id_venta, $params->id_obra)";
             mysqli_query($this->conexion, $sql) or die('no inserto el registro');
 
             $vec = [];
@@ -48,8 +45,8 @@
         }
 
         public function editar($id, $params){
-            $sql = "UPDATE usuario SET nombre = '$params->nombre', correo = '$params->correo', contrasena = '$params->contrasena', rol = '$params->rol', id_cliente = $params->id_cliente, id_artista = $params->id_artista  
-            WHERE id_usuario = $id";
+            $sql = "UPDATE detalle_venta SET cantidad = $params->cantidad, precio_unitario = $params->precio_unitario, id_venta = $params->id_venta, id_obra = $params->id_obra  
+            WHERE id_detalle = $id";
             mysqli_query($this->conexion, $sql) or die('no edito el registro');
 
             $vec = [];
