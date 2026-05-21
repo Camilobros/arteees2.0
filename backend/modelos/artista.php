@@ -9,7 +9,7 @@
 
         //metodos
         public function consulta(){
-            $sql = "SELECT * FROM artista ORDER BY nombre";
+            $sql = "SELECT * FROM artista ORDER BY nombre;";
             $res = mysqli_query($this->conexion, $sql) or die('no se encontro la tabla artista');
 
             $vec = [];
@@ -23,7 +23,7 @@
 
         public function eliminar($id){
             $sql = "DELETE FROM artista WHERE id_artista = $id";
-            mysqli_query($this->conexion, $sql) or die('no elemino el registro');
+            mysqli_query($this->conexion, $sql) or die('no elimino el registro');
 
             $vec = [];
             $vec['resultado']  = "OK";
@@ -33,7 +33,8 @@
         }
 
         public function insertar($params){
-            $sql = "INSERT INTO artista(nombre) VALUES('$params->nombre')";
+            $sql = "INSERT INTO artista(nombre, correo, portafolio) 
+            VALUES('$params->nombre', '$params->correo', '$params->portafolio')";
             mysqli_query($this->conexion, $sql) or die('no inserto el registro');
 
             $vec = [];
@@ -44,16 +45,15 @@
         }
 
         public function editar($id, $params){
-            $sql = "UPDATE artista SET nombre = '$params->nombre' WHERE id_artista = $id";
+            $sql = "UPDATE artista SET nombre = '$params->nombre', correo = '$params->correo', portafolio = '$params->portafolio'  
+            WHERE id_artista = $id";
             mysqli_query($this->conexion, $sql) or die('no edito el registro');
 
             $vec = [];
             $vec['resultado']  = "OK";
             $vec['mensaje'] = "se edito el registro";
 
+            return $vec; // Agregado para devolver la respuesta
         }
-
     }
-
-
 ?>

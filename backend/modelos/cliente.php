@@ -1,28 +1,13 @@
 <?php
     class cliente{
-    //atributos
         private $conexion;
 
         public function __construct($conexion){
             $this->conexion = $conexion;
         }
 
-        //metodos
         public function consulta(){
-            $sql = "SELECT * FROM cliente ORDER BY nombre";
-            $res = mysqli_query($this->conexion, $sql) or die('no se encontro la tabla cliente');
-
-            $vec = [];
-
-            while($row = mysqli_fetch_array($res)){
-                $vec[] = $row;
-            }
-
-            return $vec;
-        }
-
-                public function consulta2($id_direccion){
-            $sql = "SELECT * FROM cliente WHERE direccion = $id_direccion ORDER BY nombre";
+            $sql = "SELECT * FROM cliente ORDER BY nombre;";
             $res = mysqli_query($this->conexion, $sql) or die('no se encontro la tabla cliente');
 
             $vec = [];
@@ -36,7 +21,7 @@
 
         public function eliminar($id){
             $sql = "DELETE FROM cliente WHERE id_cliente = $id";
-            mysqli_query($this->conexion, $sql) or die('no elemino el registro');
+            mysqli_query($this->conexion, $sql) or die('no elimino el registro');
 
             $vec = [];
             $vec['resultado']  = "OK";
@@ -46,7 +31,8 @@
         }
 
         public function insertar($params){
-            $sql = "INSERT INTO cliente(nombre, correo, direccion) VALUES('$params->nombre', 1, $params->direccion)";
+            $sql = "INSERT INTO cliente(nombre, correo, direccion) 
+            VALUES('$params->nombre', '$params->correo', '$params->direccion')";
             mysqli_query($this->conexion, $sql) or die('no inserto el registro');
 
             $vec = [];
@@ -57,17 +43,15 @@
         }
 
         public function editar($id, $params){
-            $sql = "UPDATE cliente SET nombre = '$params->nombre', direccion = $params ->direccion WHERE id_cliente = $id";
+            $sql = "UPDATE cliente SET nombre = '$params->nombre', correo = '$params->correo', direccion = '$params->direccion'  
+            WHERE id_cliente = $id";
             mysqli_query($this->conexion, $sql) or die('no edito el registro');
 
             $vec = [];
             $vec['resultado']  = "OK";
             $vec['mensaje'] = "se edito el registro";
 
+            return $vec;
         }
-
     }
-
-
-
 ?>
