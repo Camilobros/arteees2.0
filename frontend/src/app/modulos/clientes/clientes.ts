@@ -19,10 +19,15 @@ export class Clientes implements OnInit { // 4. Le decimos a la clase que implem
     this.consulta(); // 5. CORRECCIÓN: Llamamos a la función consulta, no a la variable
   }
 
-  consulta() {
-    this.scli.consulta().subscribe((resultado: any) => {
-      this.clientes = resultado; // Llenamos la variable "clientes" con los datos
+consulta() {
+    this.scli.consulta().subscribe({
+      next: (resultado: any) => {
+        console.log("Datos recibidos de PHP:", resultado); // <-- Esto nos dirá si llegan los datos
+        this.clientes = resultado;
+      },
+      error: (error: any) => {
+        console.error("Error al conectar con PHP:", error); // <-- Esto nos avisará si hay un fallo
+      }
     });
   }
-
 }
