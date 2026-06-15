@@ -41,27 +41,36 @@
         <table class="table table-hover">
             <thead class="table-primary">
                 <tr>
-                    <th>#</th>
+                    <th></th>
                     <th>Nombre</th>
                     <th>Correo</th>
-                    <th>Dirección</th> <th>Estado</th>
+                    <th>Dirección</th>
+                    <th>EstadooOsS</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr *ngFor="let item of clientes">
-                    <td>{{item.id_cliente}}</td>
-                    <td>{{item.nombre}}</td>
-                    <td>{{item.correo}}</td>
-                    <td>{{item.direccion}}</td>
-                    <td><span class="badge bg-success">Activo</span></td>
-                    
-                    <td>
-                        <span class="fas fa-edit" style="color:brown; cursor: pointer; font-size: 1.2rem; margin-right: 10px;" title="editar"></span>
-                        <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;" title="eliminar"></span>
-                    </td>
-                </tr>
+                @for (item of clientes; track $index) {
+                    <tr>
+                        <td>{{item.id_cliente}}</td>
+                        <td>{{item.nombre}}</td>
+                        <td>{{item.correo}}</td>
+                        <td>{{item.direccion}}</td>
+                        <td><span class="badge bg-success">Activo</span></td>
+                        
+                        <td>
+                            <span class="fas fa-edit" style="color:brown; cursor: pointer; font-size: 1.2rem; margin-right: 10px;" title="editar"></span>
+                            <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;" title="eliminar"></span>
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">
+                            <i class="fas fa-spinner fa-spin"></i> Cargando datos desde PHP...
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
