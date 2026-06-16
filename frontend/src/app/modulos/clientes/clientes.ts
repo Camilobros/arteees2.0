@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Cliente } from '../../servicios/cliente';
-import { ChangeDetectorRef } from '@angular/core'; // 1. Importamos el "despertador"
+import { ChangeDetectorRef } from '@angular/core'; 
 
 @Component({
   selector: 'app-clientes',
@@ -14,7 +14,7 @@ export class Clientes implements OnInit {
 
   clientes: any[] = []; 
 
-  // 2. Inyectamos la herramienta cdr en el constructor
+  
   constructor(private scli: Cliente, private cdr: ChangeDetectorRef) {} 
 
   ngOnInit(): void {
@@ -27,7 +27,7 @@ export class Clientes implements OnInit {
         console.log("Datos recibidos de PHP:", resultado); 
         this.clientes = resultado; 
         
-        this.cdr.detectChanges(); // 3. ¡EL DESPERTADOR! Fuerza a Angular a actualizar la pantalla instantáneamente
+        this.cdr.detectChanges(); 
       },
       error: (error: any) => {
         console.error("Error al conectar con PHP:", error); 
