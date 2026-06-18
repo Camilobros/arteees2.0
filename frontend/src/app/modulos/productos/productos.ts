@@ -13,6 +13,16 @@ export class Productos implements OnInit {
 
   productos: any[] = []; 
 
+  obj_producto = {
+    titulo: "",
+    descripcion: "",
+    precio: 0,
+    estado: "",
+    id_artista: 0,
+    stock: 0
+  }
+  validar_titulo=true;
+  validar_descripcion=true;
   constructor(private sobra: Obra, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
