@@ -1,6 +1,7 @@
 import {
   Title
-} from "./chunk-X2WNGX7F.js";
+} from "./chunk-B6Y5KGVL.js";
+import "./chunk-MCHMOHSD.js";
 import {
   HashLocationStrategy,
   Location,
@@ -10,12 +11,11 @@ import {
   PathLocationStrategy,
   PlatformNavigation,
   ViewportScroller
-} from "./chunk-YO4KJRPS.js";
-import "./chunk-4263M7TP.js";
+} from "./chunk-TQBLMNW3.js";
 import {
   LOCATION_INITIALIZED,
   PlatformLocation
-} from "./chunk-2XD5Y3L2.js";
+} from "./chunk-W252KD4L.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -121,7 +121,7 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-2M4UMX5N.js";
+} from "./chunk-R7WWNCF2.js";
 
 // node_modules/@angular/router/fesm2022/_router-chunk.mjs
 var PRIMARY_OUTLET = "primary";

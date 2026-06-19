@@ -6,31 +6,59 @@
     </ol>
 </nav> 
 
-<div id="formulario">
+<input type="button" value="insertar obra" class="btn btn-warning" (click)="mostrar_form('ver')">
+
+<div id="formulario" *ngIf="mform==true">
     <form>
         <div class="row">
             <div class="col-lg-4">
                 <input type="text" class="form-control" placeholder="titulo" [(ngModel)]="obj_producto.titulo">
-                <span style="color: red;" *ngIf="validar_codigo == false">Insertar titulo</span>
+                <span style="color: red;" *ngIf="validar_titulo == false">Insertar titulo</span>
             </div>
             <div class="col-lg-4">
                 <input type="text" class="form-control" placeholder="descripcion" [(ngModel)]="obj_producto.descripcion">
-                <span style="color: red;" *ngIf="validar_nombre == false">Insertar descripcion</span>
+                <span style="color: red;" *ngIf="validar_descripcion == false">Insertar descripcion</span>
+            </div>           
+            <div class="col-lg-4">
+                <input type="text" class="form-control" placeholder="precio" [(ngModel)]="obj_producto.precio">
+                <span style="color: red;" *ngIf="validar_precio == false">Insertar precio</span>
+            </div>
+        </div>
+        
+        <br>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <input type="text" class="form-control" placeholder="estado" [(ngModel)]="obj_producto.estado">
+                <span style="color: red;" *ngIf="validar_estado == false">Insertar estado</span>
+            </div>
+            <div class="col-lg-4">
+                <select class="form-control form-select" [(ngModel)]="obj_producto.id_artista">
+                    <option value="">seleccionar artista</option>
+                </select>
+                <span style="color: red;" *ngIf="validar_artista == false">Insertar artista</span>
+            </div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" placeholder="stock" [(ngModel)]="obj_producto.stock">
+                <span style="color: red;" *ngIf="validar_stock == false">Insertar stock</span>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <input type="button" value="guardar" class="btn btn-primary" style="width: 100%;">
+            </div>
+            <div class="col-lg-4">
+                <input type="button" value="cancelar" class="btn btn-secondary" style="width: 100%" (click)="mostrar_form('no ver')">
             </div>
             <div class="col-lg-4"></div>
         </div>
-        
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4"></div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4"></div>
-        </div>
+        <br>
+
+
     </form>
 </div>
 

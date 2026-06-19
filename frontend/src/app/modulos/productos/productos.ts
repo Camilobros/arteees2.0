@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Obra } from '../../servicios/obra';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './productos.html',
   styleUrl: './productos.css',
 })
@@ -23,6 +24,11 @@ export class Productos implements OnInit {
   }
   validar_titulo=true;
   validar_descripcion=true;
+  validar_precio=true;
+  validar_estado=true;
+  validar_artista=true;
+  validar_stock=true;
+  mform=false;
   constructor(private sobra: Obra, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -41,5 +47,17 @@ export class Productos implements OnInit {
         console.error("Error al conectar con PHP:", error);
       }
     });
+  }
+
+  mostrar_form(dato: any){
+    switch(dato){
+      case "ver":
+        this.mform = true
+        break
+      case "no ver":
+        this.mform = false
+        break
+    }
+
   }
 }
