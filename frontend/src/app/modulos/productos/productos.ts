@@ -30,6 +30,7 @@ export class Productos implements OnInit {
   validar_estado=true;
   validar_artista=true;
   validar_stock=true;
+  validar_id_artista=true;
   mform=false;
   constructor(private sobra: Obra, private cdr: ChangeDetectorRef, private sartis:Artista) {}
 
@@ -67,6 +68,46 @@ export class Productos implements OnInit {
       case "no ver":
         this.mform = false
         break
+    }
+
+  }
+
+
+  validar(){
+    if(this.obj_producto.titulo == ""){
+      this.validar_titulo=false;
+    }else{
+      this.validar_titulo=true;
+    }
+
+    if(this.obj_producto.descripcion == ""){
+      this.validar_descripcion=false;
+    }else{
+      this.validar_descripcion=true;
+    }
+
+    if(this.obj_producto.precio == 0){
+      this.validar_precio=false;
+    }else{
+      this.validar_precio=true;
+    }
+
+    if(this.obj_producto.estado == ""){
+      this.validar_estado=false;
+    }else{
+      this.validar_estado=true;
+    }
+
+    if(this.obj_producto.id_artista == 0){
+      this.validar_id_artista=false;
+    }else{
+      this.validar_id_artista=true;
+    }
+
+    if(this.obj_producto.stock == 0){
+      this.validar_stock=false;
+    }else{
+      this.validar_stock=true;
     }
 
   }
