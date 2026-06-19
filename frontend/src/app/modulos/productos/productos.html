@@ -34,7 +34,7 @@
             </div>
             <div class="col-lg-4">
                 <select class="form-control form-select" [(ngModel)]="obj_producto.id_artista">
-                    <option value="">seleccionar artista</option>
+                    <option *ngFor=" let itema of artista "value="{{itema.artista}}">{{itema.nombre}}</option>
                 </select>
                 <span style="color: red;" *ngIf="validar_artista == false">Insertar artista</span>
             </div>

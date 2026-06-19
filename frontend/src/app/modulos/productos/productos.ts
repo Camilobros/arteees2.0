@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Obra } from '../../servicios/obra';
+import { Artista } from '../../servicios/artista';
 
 @Component({
   selector: 'app-productos',
@@ -13,7 +14,8 @@ import { Obra } from '../../servicios/obra';
 export class Productos implements OnInit {
 
   productos: any[] = []; 
-
+  obra:any;
+  artista:any;
   obj_producto = {
     titulo: "",
     descripcion: "",
@@ -29,10 +31,11 @@ export class Productos implements OnInit {
   validar_artista=true;
   validar_stock=true;
   mform=false;
-  constructor(private sobra: Obra, private cdr: ChangeDetectorRef) {}
+  constructor(private sobra: Obra, private cdr: ChangeDetectorRef, private sartis:Artista) {}
 
   ngOnInit(): void {
     this.consulta();
+    this.consulta_ar();
   }
 
   consulta() {
@@ -47,6 +50,13 @@ export class Productos implements OnInit {
         console.error("Error al conectar con PHP:", error);
       }
     });
+  }
+
+
+  consulta_ar(){
+    this.sartis.consulta().subscribe((resultado:any) => {
+      this.artista = resultado;
+    })
   }
 
   mostrar_form(dato: any){
