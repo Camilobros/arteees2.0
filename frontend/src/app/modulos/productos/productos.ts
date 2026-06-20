@@ -132,7 +132,7 @@ export class Productos implements OnInit {
 
   guardar(){
     this.sobra.insertar(this.obj_producto).subscribe((datos:any) => {
-      if(datos['resultado']=='ok'){
+      if(datos['resultado']=='OK'){
         this.consulta();
       }
     });
