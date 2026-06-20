@@ -72,6 +72,19 @@ export class Productos implements OnInit {
 
   }
 
+  limpiar(){
+    this.obj_producto = {
+    titulo: "",
+    descripcion: "",
+    precio: 0,
+    estado: "",
+    id_artista: 0,
+    stock: 0
+    }
+  }
+
+  
+
 
   validar(){
     if(this.obj_producto.titulo == ""){
@@ -79,6 +92,7 @@ export class Productos implements OnInit {
     }else{
       this.validar_titulo=true;
     }
+  
 
     if(this.obj_producto.descripcion == ""){
       this.validar_descripcion=false;
@@ -117,6 +131,12 @@ export class Productos implements OnInit {
   }
 
   guardar(){
-    this
+    this.sobra.insertar(this.obj_producto).subscribe((datos:any) => {
+      if(datos['resultado']=='ok'){
+        this.consulta();
+      }
+    });
+    this.limpiar();
+    this.mostrar_form("no ver");
   }
 }
