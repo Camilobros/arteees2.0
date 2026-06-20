@@ -110,5 +110,13 @@ export class Productos implements OnInit {
       this.validar_stock=true;
     }
 
+    if(this.validar_titulo==true && this.validar_descripcion==true && this.validar_precio== true && this.validar_estado== true && this.validar_id_artista==true && this.validar_stock== true){
+      this.guardar();
+    }
+
+  }
+
+  guardar(){
+    this
   }
 }
