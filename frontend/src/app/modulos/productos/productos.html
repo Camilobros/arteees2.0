@@ -29,15 +29,22 @@
 
         <div class="row">
             <div class="col-lg-4">
-                <input type="text" class="form-control" placeholder="estado" [(ngModel)]="obj_producto.estado">
-                <span style="color: red;" *ngIf="validar_estado == false">Insertar estado</span>
-            </div>
-            <div class="col-lg-4">
-                <select class="form-control form-select" [(ngModel)]="obj_producto.id_artista">
-                    <option *ngFor=" let itema of artista "value="{{itema.artista}}">{{itema.nombre}}</option>
+        <select class="form-select" [(ngModel)]="obj_producto.estado">
+            <option value="" disabled selected>Seleccione un estado...</option>
+            <option value="disponible">disponible</option>
+            <option value="reservado">reservado</option>
+            <option value="vendido">vendido</option>
+        </select>
+        
+        <span style="color: red;" *ngIf="validar_estado == false">Seleccionar un estado</span>
+    </div>
+            <select class="form-control form-select" [(ngModel)]="obj_producto.id_artista">
+                    <option value="0" disabled selected>Seleccione un artista...</option>
+                    
+                    <option *ngFor="let itema of artista" value="{{itema.id_artista}}">{{itema.nombre}}</option>
                 </select>
-                <span style="color: red;" *ngIf="validar_artista == false">Insertar artista</span>
-            </div>
+                
+                <span style="color: red;" *ngIf="validar_id_artista == false">Seleccionar un artista</span>
             <div class="col-lg-4">
                 <input type="text" class="form-control" placeholder="stock" [(ngModel)]="obj_producto.stock">
                 <span style="color: red;" *ngIf="validar_stock == false">Insertar stock</span>
