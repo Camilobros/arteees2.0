@@ -34,15 +34,27 @@
             return $vec;
         }
 
-        public function insertar($params){
-            $sql = "INSERT INTO obra(titulo, descripcion, precio, estado, id_artista, stock) 
-            VALUES('$params->titulo', '$params->descripcion', $params->precio, '$params->estado', $params->id_artista, $params->stock)";
-            mysqli_query($this->conexion, $sql) or die('no inserto el registro');
+public function insertar($params) {
+            
+            $titulo = $params->titulo;
+            $descripcion = $params->descripcion;
+            $precio = $params->precio;
+            $estado = $params->estado;
+            $id_artista = $params->id_artista;
+            $stock = $params->stock;
 
+            
+            $sql = "INSERT INTO obra (titulo, descripcion, precio, estado, id_artista, stock) 
+                    VALUES ('$titulo', '$descripcion', $precio, '$estado', $id_artista, $stock)";
+
+            
+            mysqli_query($this->conexion, $sql) or die("Fallo MySQL: " . mysqli_error($this->conexion));
+
+            
             $vec = [];
-            $vec['resultado']  = "OK";
-            $vec['mensaje'] = "se inserto el registro";
-
+            $vec['resultado'] = 'OK';
+            $vec['mensaje'] = 'se inserto el registro';
+            
             return $vec;
         }
 
