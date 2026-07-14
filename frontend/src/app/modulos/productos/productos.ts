@@ -122,29 +122,29 @@ export class Productos implements OnInit {
       this.validar_stock=true;
     }
 
-    // Comprobamos si pasó todas las pruebas
+    
     if(this.validar_titulo && this.validar_descripcion && this.validar_precio && this.validar_estado && this.validar_id_artista && this.validar_stock){
-      console.log("✅ Validación perfecta. Pasando a guardar...");
+      console.log(" Validación perfecta. Pasando a guardar...");
       this.guardar();
     } else {
-      console.warn("⛔ La validación falló. Revisa que llenaste todo y seleccionaste un artista.");
+      console.warn(" La validación falló. Revisa que llenaste todo y seleccionaste un artista.");
     }
   }
 
   guardar() {
-    console.log("📤 Enviando estos datos a PHP:", this.obj_producto);
+    console.log(" Enviando estos datos a PHP:", this.obj_producto);
 
     this.sobra.insertar(this.obj_producto).subscribe({
       next: (datos: any) => {
-        console.log("📥 Respuesta recibida de PHP:", datos);
+        console.log(" Respuesta recibida de PHP:", datos);
         
-        // CORRECCIÓN: Ahora acepta 'OK' mayúscula o minúscula
+        
         if(datos['resultado'] == 'OK' || datos['resultado'] == 'ok'){
-          this.consulta(); // Recarga la tabla para mostrar la nueva obra
+          this.consulta(); 
         }
       },
       error: (error: any) => {
-        console.error("❌ Falló la conexión con PHP o hubo un error en la Base de Datos:", error);
+        console.error(" Falló la conexión con PHP o hubo un error en la Base de Datos:", error);
       }
     });
 
