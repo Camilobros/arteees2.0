@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Obra } from '../../servicios/obra';
 import { Artista } from '../../servicios/artista';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
@@ -151,4 +152,49 @@ export class Productos implements OnInit {
     this.limpiar();
     this.mostrar_form("no ver");
   }
+
+  eliminar(id:number){
+          Swal.fire({
+    title: "¿Estas seguro de eliminar?",
+    text: "El proceso no se puede revertir!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, Eliminar!",
+    cancelButtonText: "Cancelar"
+    }).then((result) => {
+    if (result.isConfirmed){ 
+
+      ////////
+
+      
+      this.sobra.eliminar(id).subscribe((datos:any) => {
+        if(datos['resultado'] == 'OK'){
+        this.consulta();
+        }
+      })
+
+
+
+      //////////
+      
+      
+      
+      
+      
+      Swal.fire({
+      title: "Producto eliminado!",
+      text: "El producto a sido eliminado.",
+      icon: "success"
+      });
+    }
+    });
+
+
+
+
+
+    
+  };
 }
