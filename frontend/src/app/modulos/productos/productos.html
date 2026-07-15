@@ -1,78 +1,75 @@
-
 <nav>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Inicio</a></li>
         <li class="breadcrumb-item active">Productos (Obras)</li>
     </ol>
-</nav> 
+</nav>
 
 <input type="button" value="insertar obra" class="btn btn-warning" (click)="mostrar_form('ver')">
 
 <div id="formulario" *ngIf="mform==true">
-    
-        <div class="row">
-            <div class="col-lg-4">
-                <input type="text" class="form-control" placeholder="titulo" [(ngModel)]="obj_producto.titulo">
-                <span style="color: red;" *ngIf="validar_titulo == false">Insertar titulo</span>
-            </div>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" placeholder="descripcion" [(ngModel)]="obj_producto.descripcion">
-                <span style="color: red;" *ngIf="validar_descripcion == false">Insertar descripcion</span>
-            </div>           
-            <div class="col-lg-4">
-                <input type="text" class="form-control" placeholder="precio" [(ngModel)]="obj_producto.precio">
-                <span style="color: red;" *ngIf="validar_precio == false">Insertar precio</span>
-            </div>
-        </div>
-        
-        <br>
 
-        <div class="row">
-            <div class="col-lg-4">
-        <select class="form-select" [(ngModel)]="obj_producto.estado">
-            <option value="" disabled selected>Seleccione un estado...</option>
-            <option value="disponible">disponible</option>
-            <option value="reservado">reservado</option>
-            <option value="vendido">vendido</option>
-        </select>
-        
-        <span style="color: red;" *ngIf="validar_estado == false">Seleccionar un estado</span>
+    <div class="row">
+        <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="titulo" [(ngModel)]="obj_producto.titulo">
+            <span style="color: red;" *ngIf="validar_titulo == false">Insertar titulo</span>
+        </div>
+        <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="descripcion" [(ngModel)]="obj_producto.descripcion">
+            <span style="color: red;" *ngIf="validar_descripcion == false">Insertar descripcion</span>
+        </div>
+        <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="precio" [(ngModel)]="obj_producto.precio">
+            <span style="color: red;" *ngIf="validar_precio == false">Insertar precio</span>
+        </div>
     </div>
-            <select class="form-control form-select" [(ngModel)]="obj_producto.id_artista">
-                    <option value="0" disabled selected>Seleccione un artista...</option>
-                    
-                    <option *ngFor="let itema of artista" value="{{itema.id_artista}}">{{itema.nombre}}</option>
-                </select>
-                
-                <span style="color: red;" *ngIf="validar_id_artista == false">Seleccionar un artista</span>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" placeholder="stock" [(ngModel)]="obj_producto.stock">
-                <span style="color: red;" *ngIf="validar_stock == false">Insertar stock</span>
-            </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <select class="form-select" [(ngModel)]="obj_producto.estado">
+                <option value="" disabled selected>Seleccione un estado...</option>
+                <option value="disponible">disponible</option>
+                <option value="reservado">reservado</option>
+                <option value="vendido">vendido</option>
+            </select>
+
+            <span style="color: red;" *ngIf="validar_estado == false">Seleccionar un estado</span>
         </div>
+        <select class="form-control form-select" [(ngModel)]="obj_producto.id_artista">
+            <option value="0" disabled selected>Seleccione un artista...</option>
 
-        <br>
+            <option *ngFor="let itema of artista" value="{{itema.id_artista}}">{{itema.nombre}}</option>
+        </select>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <input type="button" value="guardar" class="btn btn-primary" style="width: 100%;" (click)="validar()">
-            </div>
-            <div class="col-lg-4">
-                <input type="button" value="cancelar" class="btn btn-secondary" style="width: 100%" (click)="mostrar_form('no ver')">
-            </div>
-            <div class="col-lg-4"></div>
+        <span style="color: red;" *ngIf="validar_id_artista == false">Seleccionar un artista</span>
+        <div class="col-lg-4">
+            <input type="text" class="form-control" placeholder="stock" [(ngModel)]="obj_producto.stock">
+            <span style="color: red;" *ngIf="validar_stock == false">Insertar stock</span>
         </div>
+    </div>
 
-        <br>
+    <br>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <input type="button" value="guardar" class="btn btn-primary" style="width: 100%;" (click)="validar()" *ngif>
+            <input type="button" value="Editar" class="btn btn-primary" style="width: 100%;">
+        </div>
+        <div class="col-lg-4">
+            <input type="button" value="cancelar" class="btn btn-secondary" style="width: 100%" (click)="mostrar_form('no ver')">
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+
+    <br>
 
 
 </div>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="text-primary">Gestión de Productos</h2>
-    <button class="btn btn-primary">
-        <i class="fas fa-plus"></i> Nueva Obra
-    </button>
 </div>
 
 <div class="card shadow-sm p-3 mb-4">
@@ -113,32 +110,36 @@
 
             <tbody>
                 @for (item of productos; track $index) {
-                    <tr>
-                        <td>{{item.id_obra}}</td>
-                        <td><strong>{{item.titulo}}</strong></td>
-                        <td>{{item.descripcion}}</td>
-                        <td>{{item.artista}}</td>
-                        <td>${{item.precio}}</td>
-                        <td>{{item.stock}}</td>
-                        <td>
-                            <span class="badge" 
+                <tr>
+                    <td>{{item.id_obra}}</td>
+                    <td><strong>{{item.titulo}}</strong></td>
+                    <td>{{item.descripcion}}</td>
+                    <td>{{item.artista}}</td>
+                    <td>${{item.precio}}</td>
+                    <td>{{item.stock}}</td>
+                    <td>
+                        <span class="badge"
                             [ngClass]="{'bg-success': item.estado === 'disponible', 'bg-warning text-dark': item.estado === 'reservado'}">
-                                {{item.estado}}
-                            </span>
-                        </td>
-                        <td>
-                            <span class="fas fa-edit" style="color:brown; cursor: pointer; font-size: 1.2rem; margin-right: 10px;" title="Editar"></span>
-                            <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;" title="Eliminar" (click)="eliminar(item.id_obra)"></span>
-                        </td>
-                    </tr>
+                            {{item.estado}}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="fas fa-edit"
+                            style="color:brown; cursor: pointer; font-size: 1.2rem; margin-right: 10px;"
+                            title="Editar"></span>
+                        <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;"
+                            title="Eliminar" (click)="eliminar(item.id_obra)"></span>
+                    </td>
+                </tr>
                 } @empty {
-                    <tr>
-                        <td colspan="8" class="text-center text-muted py-4">
-                            <i class="fas fa-spinner fa-spin"></i> Cargando productos desde PHP...
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="8" class="text-center text-muted py-4">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando productos desde PHP...
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
+

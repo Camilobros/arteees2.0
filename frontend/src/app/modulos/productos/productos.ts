@@ -33,6 +33,7 @@ export class Productos implements OnInit {
   validar_stock=true;
   validar_id_artista=true;
   mform=false;
+  botonesForm = false;
   constructor(private sobra: Obra, private cdr: ChangeDetectorRef, private sartis:Artista) {}
 
   ngOnInit(): void {
@@ -197,4 +198,12 @@ export class Productos implements OnInit {
 
     
   };
+
+
+  cargarDatos(){
+
+  }
+
+
+
 }
