@@ -54,8 +54,8 @@
 
     <div class="row">
         <div class="col-lg-4">
-            <input type="button" value="guardar" class="btn btn-primary" style="width: 100%;" (click)="validar()" *ngif>
-            <input type="button" value="Editar" class="btn btn-primary" style="width: 100%;">
+            <input type="button" value="guardar" class="btn btn-primary" style="width: 100%;" (click)="validar()" *ngIf="botones_form == false">
+            <input type="button" value="Editar" class="btn btn-primary" style="width: 100%;"  *ngIf="botones_form == true">
         </div>
         <div class="col-lg-4">
             <input type="button" value="cancelar" class="btn btn-secondary" style="width: 100%" (click)="mostrar_form('no ver')">
@@ -126,7 +126,7 @@
                     <td>
                         <span class="fas fa-edit"
                             style="color:brown; cursor: pointer; font-size: 1.2rem; margin-right: 10px;"
-                            title="Editar"></span>
+                            title="Editar" (click)="cargar_datos(item, item.id_producto)"></span>
                         <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;"
                             title="Eliminar" (click)="eliminar(item.id_obra)"></span>
                     </td>

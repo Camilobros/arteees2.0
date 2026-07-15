@@ -17,6 +17,7 @@ export class Productos implements OnInit {
   productos: any[] = []; 
   obra:any;
   artista:any;
+  id_producto:any
   obj_producto = {
     titulo: "",
     descripcion: "",
@@ -33,7 +34,7 @@ export class Productos implements OnInit {
   validar_stock=true;
   validar_id_artista=true;
   mform=false;
-  botonesForm = false;
+  botones_form = false;
   constructor(private sobra: Obra, private cdr: ChangeDetectorRef, private sartis:Artista) {}
 
   ngOnInit(): void {
@@ -66,10 +67,11 @@ export class Productos implements OnInit {
     switch(dato){
       case "ver":
         this.mform = true
-        break
+      break;
       case "no ver":
-        this.mform = false
-        break
+        this.mform = false;
+        this.botones_form = false;
+      break;
     }
 
   }
@@ -200,7 +202,25 @@ export class Productos implements OnInit {
   };
 
 
-  cargarDatos(){
+  cargar_datos(items: any, id: number){
+
+    this.obj_producto = {
+    titulo: items.titulo,
+    descripcion: items.descripcion,
+    precio: items.precio,
+    estado: items.estado,
+    id_artista:items.id_artista,
+    stock:items.stock
+  }
+
+  this.id_producto = id;
+
+
+
+
+
+    this.botones_form = true;
+    this.mostrar_form('ver');
 
   }
 
