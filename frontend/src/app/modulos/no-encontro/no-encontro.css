@@ -1,0 +1,62 @@
+
+.error-container {
+    width: 100vw;
+    
+    height: 100vh;
+    
+    overflow: hidden;
+    
+    position: relative;
+    
+    background-color: #050505;
+    
+}
+
+
+.error-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    
+    z-index: 3;
+    
+    animation: core-flicker 0.2s infinite;
+    
+}
+
+.core-glitch-img {
+    width: 50vw;
+    
+    height: auto;
+    filter: drop-shadow(0 0 25px rgba(255, 0, 255, 0.7));
+    
+}
+
+.glitch-text {
+    font-family: 'Courier New', Courier, monospace;
+    
+    color: #fff;
+    font-size: 3rem;
+    text-transform: uppercase;
+    position: relative;
+    color: #fff;
+    text-shadow: 0 0 10px #00ffff;
+    
+}
+
+
+@keyframes core-flicker {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.95;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -4,6 +4,7 @@ import { Dashboard } from './modulos/dashboard/dashboard';
 import { Clientes } from './modulos/clientes/clientes';
 import { Productos } from './modulos/productos/productos';
 import { Login } from './modulos/login/login';
+import { NoEncontro } from './modulos/no-encontro/no-encontro';
 
 export const routes: Routes = [
     {
@@ -18,5 +19,6 @@ export const routes: Routes = [
         ]
     },
 
-    {path: 'login', component: Login}
+    {path: 'login', component: Login},
+    {path: '**', component: NoEncontro}
 ];
