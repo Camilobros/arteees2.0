@@ -225,9 +225,8 @@ export class Productos implements OnInit {
 
   editar(){
     this.sobra.editar(this.id_producto, this.obj_producto).subscribe((datos:any) => {
-      if(datos['resultado']=="OK"){
         this.consulta();
-      }
+      
     });
     this.limpiar();
     this.mostrar_form("no ver");
