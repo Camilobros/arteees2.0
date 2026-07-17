@@ -132,7 +132,7 @@ export class Productos implements OnInit {
     }
 
     if (this.validar_titulo && this.validar_descripcion && this.validar_precio && this.validar_estado && this.validar_id_artista && this.validar_stock && funcion == 'editar') {
-      this.guardar();
+      this.editar();
     }
 
   }
@@ -213,17 +213,13 @@ export class Productos implements OnInit {
       estado: items.estado,
       id_artista: items.id_artista,
       stock: items.stock
-    }
+    };
 
-    this.id_producto = id;
-
-
-
+    this.id_producto = items.id_obra; 
 
 
     this.botones_form = true;
     this.mostrar_form('ver');
-
   }
 
 

@@ -52,16 +52,20 @@
 
     <br>
 
-    <div class="row">
-        <div class="col-lg-4">
-            <input type="button" value="guardar" class="btn btn-primary" style="width: 100%;" (click)="validar('guardar')" *ngIf="botones_form == false">
-            <input type="button" value="Editar" class="btn btn-primary" style="width: 100%;"  (click)="validar('editar')" *ngIf="botones_form == true">
+<div class="row">
+            <div class="col-lg-4" *ngIf="botones_form == false">
+                <input type="button" value="Guardar Obra" class="btn btn-primary" style="width: 100%;" (click)="validar('guardar')">
+            </div>
+
+            <div class="col-lg-4" *ngIf="botones_form == true">
+                <input type="button" value="Actualizar Obra" class="btn btn-warning" style="width: 100%;" (click)="validar('editar')">
+            </div>
+
+            <div class="col-lg-4">
+                <input type="button" value="Cancelar" class="btn btn-secondary" style="width: 100%" (click)="mostrar_form('no ver')">
+            </div>
+            <div class="col-lg-4"></div>
         </div>
-        <div class="col-lg-4">
-            <input type="button" value="cancelar" class="btn btn-secondary" style="width: 100%" (click)="mostrar_form('no ver')">
-        </div>
-        <div class="col-lg-4"></div>
-    </div>
 
     <br>
 
