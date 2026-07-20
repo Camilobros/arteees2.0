@@ -110,3 +110,12 @@
     box-shadow: 0 0 20px #594afa, 0 0 40px #ff00ff;
     transform: scale(1.02);
 }
+
+.col-12{
+    color: red;
+
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+
+    letter-spacing: 3px;
+    
+}

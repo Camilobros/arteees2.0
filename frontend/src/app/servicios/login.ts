@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class Login {
+export class LoginService {
 
   url = "http://localhost/proyectos/arteees2.0/backend/controladores/login.php";
 

@@ -10,12 +10,18 @@
         <form>
             <div class="mb-4 input-group-neon">
                 <label class="form-label">IDENTIFICACIÓN (CORREO)</label>
-                <input type="email" class="form-control synth-input" placeholder="correo@ejemplo.com" name="correo" >
+                <!-- CORRECCIÓN: Dejamos solo una caja de corchetes y paréntesis -->
+                <input type="email" class="form-control synth-input" placeholder="correo@ejemplo.com" name="correo" [(ngModel)]="correo">
             </div>
             
             <div class="mb-5 input-group-neon">
                 <label class="form-label">CLAVE DE ACCESO</label>
-                <input type="password" class="form-control synth-input" placeholder="********" name="password" >
+                
+                <input type="password" class="form-control synth-input" placeholder="********" name="password" [(ngModel)]="contrasena">
+            </div>
+
+            <div class="col-12" *ngIf="error==true"> 
+                <span>Email o contraseña incorrecto</span>
             </div>
             
             <input type="button" class="btn btn-synth w-100" value="INICIALIZAR SECUENCIA" (click)="consulta('')">
