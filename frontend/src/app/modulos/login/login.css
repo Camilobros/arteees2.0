@@ -1,0 +1,112 @@
+
+.login-wrapper {
+    position: relative;
+    min-height: 100vh;
+    background-color: #090014; /* Un tono casi negro con un toque de púrpura profundo */
+    overflow: hidden;
+    z-index: 0;
+}
+
+/* El efecto del piso con cuadrícula láser en movimiento */
+.synthwave-grid {
+    position: absolute;
+    bottom: 0;
+    left: -50%;
+    width: 200%;
+    height: 50vh;
+    /* Dibujamos la cuadrícula con gradientes magenta y cian */
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 255, 0.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+    /* Le damos perspectiva 3D para que parezca un piso infinito */
+    transform: perspective(500px) rotateX(60deg);
+    z-index: -1;
+    animation: grid-move 10s linear infinite;
+}
+
+@keyframes grid-move {
+    0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+    100% { transform: perspective(500px) rotateX(60deg) translateY(40px); }
+}
+
+
+.login-card {
+    background: rgba(10, 10, 25, 0.85); 
+    backdrop-filter : blur(10px); 
+    border: 2px solid #ff00ff; 
+    width: 420px;
+    
+    box-shadow: 
+        0 0 20px rgba(255, 0, 255, 0.4),
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+    z-index: 1;
+}
+
+
+.neon-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Brillo cian */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.neon-subtitle {
+    font-family: 'Courier New', Courier, monospace;
+    color: #ff00ff;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+
+.input-group-neon label {
+    color: #00ffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.synth-input {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    border: 1px solid #444 !important;
+    color: #00ffff !important; 
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+
+.synth-input:focus {
+    border-color: #00ffff !important;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5) !important;
+    outline: none;
+}
+
+.synth-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+
+.btn-synth {
+    background-color: transparent;
+    color: #ff00ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    border: 2px solid #ff00ff;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+
+.btn-synth:hover {
+    background-color: #4a50f3;
+    color: #000;
+    box-shadow: 0 0 20px #594afa, 0 0 40px #ff00ff;
+    transform: scale(1.02);
+}

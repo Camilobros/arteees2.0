@@ -8,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class Login {
 
+  correo: any;
+  contrasena: any;
+  error: false;
+  user: {
+    
+  }
+
 }
