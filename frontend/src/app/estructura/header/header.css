@@ -24,3 +24,26 @@
             0 0 40px #ffffff;
     }
 }
+
+.bton-cerrar-sesion{
+    color: azure;
+    
+}
+.bton-cerrar-sesion:hover{
+    animation: neonGlow2 1.5s infinite alternate;
+
+}
+@keyframes neonGlow2 {
+    from {
+        text-shadow: 
+            0 0 5px #aa00ff52,
+            0 0 10px #da0bff83,
+            0 0 20px #a800ae;
+    }
+    to {
+        text-shadow: 
+            0 0 10px #980baa,
+            0 0 20px #850689,
+            0 0 40px #f700ff;
+    }
+}
