@@ -5,7 +5,7 @@
             <h5 class="titulo-menu">Menú</h5>
             <ul class="nav flex-column">
                 <li class="nav-item"><a class="nav-link" href="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="/clientes" routerLink="/clientes.html"><i class="bi bi-people" ></i> Clientes</a></li>
+                <li class="nav-item"><a class="nav-link" *ngIf="rol!='cliente'" href="/clientes" routerLink="/clientes.html"><i class="bi bi-people" ></i> Clientes</a></li>
                 <li class="nav-item"><a class="nav-link" href="/productos"><i class="bi bi-brush"></i> Productos</a></li>
             </ul>
         </nav>
@@ -18,7 +18,7 @@
     <div class="offcanvas-body">
         <ul class="nav flex-column">
             <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a></li>
+            <li class="nav-item"><a class="nav-link"   *ngIf="rol!='cliente'" href="/clientes"  >Clientes</a></li>
             <li class="nav-item"><a class="nav-link" href="/productos">Productos</a></li>
         </ul>
     </div>
