@@ -1,37 +1,34 @@
-import { Component, OnInit } from '@angular/core'; // 👈 1. Importamos OnInit
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { Pedidoservice } from '../../servicios/pedidoservice';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-
-@Component({
-  selector: 'app-pedido',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './pedido.html',
-  styleUrl: './pedido.css',
+@Injectable({
+  providedIn: 'root',
 })
-export class Pedido implements OnInit { // 👈 2. Le decimos que implemente OnInit
+export class Pedidoservice {
 
-  venta: any = []; // 👈 3. Le ponemos = [] para que la tabla no se rompa al cargar vacía
+  url = "http://localhost/proyectos/arteees2.0/backend/controladores/pedido.php";
 
-  constructor(private router: Router, private spedido: Pedidoservice ){}
-
-  ngOnInit(): void {
-    this.consulta();
-  }
+  constructor(private http: HttpClient){}
 
   consulta(){
-    this.spedido.consulta().subscribe({
-      next: (result: any) => {
-        // 👈 4. ESTA ES LA CLAVE: Vamos a ver exactamente qué nos manda PHP
-        console.log("📥 Datos que llegaron de PHP:", result); 
-        this.venta = result;
-      },
-      error: (error: any) => {
-        console.error("❌ Error de conexión con PHP:", error);
-      }
-    });
+    return this.http.get(`${this.url}?control=consulta`);
   }
 
+
+
+
+  insertar(params: any){
+    return this.http.post(`${this.url}?control=insertar`, JSON.stringify(params));
+  }
+
+  editar(id: number, params: any){
+    return this.http.post(`${this.url}?control=editar&id=${id}`, JSON.stringify(params));
+  }
+
+  eliminar(id: number){
+    return this.http.get(`${this.url}?control=eliminar&id=${id}`); 
+  }
+
+
+  
 }
