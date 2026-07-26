@@ -1,22 +1,34 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Pedidoservice } from '../../servicios/pedidoservice';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pedido',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './pedido.html',
   styleUrl: './pedido.css',
 })
 export class Pedido {
 
-  ventas : any;
+  ventas: any;
 
-  constructor(private router: Router){}
-  ngOnInit(){
-    
+  constructor(private router: Router, private spedido: Pedidoservice) { }
+  ngOnInit(): void {
+    this.consulta();
+
+  }
+
+  consulta() {
+    this.spedido.consulta().subscribe((result: any) => {
+      this.ventas = result;
+
+    });
+
   }
 
 
-  
+
+
 
 }
