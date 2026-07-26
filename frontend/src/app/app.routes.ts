@@ -9,6 +9,7 @@ import { validaruserGuard } from './guard/validaruser-guard';
 import { Pedido } from './modulos/pedido/pedido';
 import { Categoria } from './modulos/categoria/categoria';
 import { Usuario } from './modulos/usuario/usuario';
+import { Pedidoinsertar } from './modulos/pedidoinsertar/pedidoinsertar';
 
 export const routes: Routes = [
     {
@@ -21,6 +22,8 @@ export const routes: Routes = [
             {path: 'pedido', component: Pedido  , canActivate : [validaruserGuard]},
             {path: 'usuario', component: Usuario  , canActivate : [validaruserGuard]},
             {path: 'categoria', component: Categoria  , canActivate : [validaruserGuard]},
+            {path: 'pedidoins', component: Pedidoinsertar  , canActivate : [validaruserGuard]},
+
 
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
             

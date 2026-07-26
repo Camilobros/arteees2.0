@@ -31,6 +31,12 @@ export class Pedido {
   }
 
 
+  insertar(){
+    this.router.navigate(['pedidoins']);
+
+  }
+
+
 
 
 
