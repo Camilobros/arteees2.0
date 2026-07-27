@@ -29,13 +29,13 @@
                         <th>precio</th>
                         <th></th>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr *ngFor="let item of obras">
+                        <td>{{item.id_obra}}</td>
+                        <td>{{item.titulo}}</td>
+                        <td>{{item.stock}} </td>
+                        <td>{{item.precio}}</td>
                         <td>
-                            <span class=""></span>
+                            <span class="fas fa-check-square" style="color: green; font-size: 20px; cursor:pointer"></span>
                         </td>
                     </tr>
                 </table>
