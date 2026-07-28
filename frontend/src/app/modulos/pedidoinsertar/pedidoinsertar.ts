@@ -5,6 +5,7 @@ import { Cliente } from '../../servicios/cliente';
 import { Pedidoservice } from '../../servicios/pedidoservice';
 import { CommonModule } from '@angular/common';  
 import { FormsModule } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-pedidoinsertar',
@@ -15,15 +16,18 @@ import { FormsModule } from '@angular/forms';
 export class Pedidoinsertar {
 
   obras:any;
-  constructor(private router: Router, private sobra: Obra, private scliente: Cliente, private spedido : Pedidoservice) { }
+  cliente:any;
+  constructor(private router: Router, private sobra: Obra, private scliente: Cliente, private spedido : Pedidoservice, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.consulta_obra
+    this.consulta_obra();
   }
 
   consulta_obra(){
     this.sobra.consulta().subscribe((result:any)=>{
       this.obras = result;
+
+      this.cdr.detectChanges();
     })
 
   }
