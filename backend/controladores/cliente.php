@@ -31,6 +31,12 @@
 
             $vec = $cliente->eliminar($id);
             break;
+
+        case 'filtro':
+            $dato = $_GET['dato'];
+            // Solo guardamos la información en $vec y dejamos que el código de abajo haga el resto
+            $vec = $cliente->filtro($dato); 
+            break; 
     }
 
     $datos = json_encode($vec, JSON_UNESCAPED_UNICODE);

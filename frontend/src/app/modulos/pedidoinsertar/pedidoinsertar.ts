@@ -17,6 +17,7 @@ export class Pedidoinsertar {
 
   obras:any;
   cliente:any;
+  ident_cliete = "";
   constructor(private router: Router, private sobra: Obra, private scliente: Cliente, private spedido : Pedidoservice, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -30,6 +31,14 @@ export class Pedidoinsertar {
       this.cdr.detectChanges();
     })
 
+  }
+
+  consulta_cliente(){
+    this.scliente.filtro(this.ident_cliete).subscribe((result:any)=>{
+      this.cliente=result;
+      console.log(this.cliente);
+      
+    }) 
   }
 
 }

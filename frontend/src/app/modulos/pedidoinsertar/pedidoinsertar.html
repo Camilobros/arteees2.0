@@ -60,7 +60,7 @@
                             <td>
                                 <div class="row">
                                     <div class="col-lg-3">
-                                        <input type="text" class="form-control" placeholder="identificacion del cliente">
+                                        <input type="text" class="form-control" placeholder="identificacion del cliente" [(ngModel)]="ident_cliete" (keyup)="consulta_cliente()">
                                     </div>
                                     <div class="col-lg-9"></div>
                                 </div>
