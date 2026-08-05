@@ -17,60 +17,61 @@
 
 <section class="content">
     <div class="container-fluid">
-        <div class="row"></div>
-        <div class="col-lg-6">
-            <div id="producto">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <caption>OBRAS</caption>
-                            <tr>
-                                <th>Codigo</th>
-                                <th>Nombre</th>
-                                <th>stock</th>
-                                <th>precio</th>
-                                <th></th>
-                            </tr>
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="producto">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <caption>OBRAS</caption>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>stock</th>
+                                    <th>precio</th>
+                                    <th></th>
+                                </tr>
 
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of obras">
-                                <td>{{item.id_obra}}</td>
-                                <td>{{item.titulo}}</td>
-                                <td>{{item.stock}} </td>
-                                <td>{{item.precio | currency}}</td>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of obras">
+                                    <td>{{item.id_obra}}</td>
+                                    <td>{{item.titulo}}</td>
+                                    <td>{{item.stock}} </td>
+                                    <td>{{item.precio | currency}}</td>
+                                    <td>
+                                        <span class="fas fa-check-square"
+                                            style="color: green; font-size: 20px; cursor:pointer"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="table-responsive">
+                    <table class="tabla">
+                        <thead>
+                            <caption>CLIENTE</caption>
+                            <tr>
                                 <td>
-                                    <span class="fas fa-check-square"
-                                        style="color: green; font-size: 20px; cursor:pointer"></span>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <input type="text" class="form-control"
+                                                placeholder="identificacion del cliente" [(ngModel)]="ident_cliete"
+                                                (keyup)="consulta_cliente()">
+                                        </div>
+                                        <div class="col-lg-9"></div>
+                                    </div>
                                 </td>
                             </tr>
-                        </tbody>
-
-
+                        </thead>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="table-responsive">
-                <table class="tabla">
-                    <thead>
-                        <caption>CLIENTE</caption>
-                        <tr>
-                            <td>
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <input type="text" class="form-control" placeholder="identificacion del cliente" [(ngModel)]="ident_cliete" (keyup)="consulta_cliente()">
-                                    </div>
-                                    <div class="col-lg-9"></div>
-                                </div>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
-
-
     </div>
 </section>
