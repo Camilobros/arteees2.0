@@ -18,6 +18,9 @@ export class Pedidoinsertar {
   obras:any;
   cliente:any;
   ident_cliete = "";
+  nombre_cliente = "";
+
+
   constructor(private router: Router, private sobra: Obra, private scliente: Cliente, private spedido : Pedidoservice, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -34,8 +37,9 @@ export class Pedidoinsertar {
   }
 
   consulta_cliente(){
-    this.scliente.filtro(this.ident_cliete).subscribe((result:any)=>{
+    this.scliente.ccliente(this.ident_cliete).subscribe((result:any)=>{
       this.cliente=result;
+      this.nombre_cliente = this.cliente[0].nombre;
       console.log(this.cliente);
       
     }) 

@@ -72,6 +72,21 @@
         }
 
 
+        public function consultar_cliente($dato) {
+            $sql = "SELECT * FROM cliente 
+                    WHERE id_cliente LIKE '%$dato%' 
+                    ORDER BY nombre";
+                    
+            $res = mysqli_query($this->conexion, $sql) or die('Fallo en el filtro');
+    
+            $vec = [];
+            while($row = mysqli_fetch_array($res)) {
+                $vec[] = $row;
+            }
+            return $vec;
+        }
+
+
 
 
 
