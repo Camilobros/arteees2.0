@@ -19,6 +19,25 @@ export class Pedidoinsertar {
   cliente:any;
   ident_cliete = "";
   nombre_cliente = "";
+  prod = {
+    id_obra: "",
+    titulo: "",
+    precio: 0,
+    cantidad: 0,
+    subtotal: 0
+  }
+
+
+  
+    
+
+
+
+
+
+
+
+  arreglo_productos: any = [];
 
 
   constructor(private router: Router, private sobra: Obra, private scliente: Cliente, private spedido : Pedidoservice, private cdr: ChangeDetectorRef) { }
@@ -43,6 +62,20 @@ export class Pedidoinsertar {
       console.log(this.cliente);
       
     }) 
+  }
+
+
+
+  seleccionar(valores:any, id:number){
+    let cantidad = Number(prompt("Ingrese la cantidad a llevar"));
+    this.prod.id_obra = valores.id_obra;
+    this.prod.titulo = valores.titulo;
+    this.prod.precio = Number(valores.precio);
+    this.prod.cantidad = cantidad;
+    this.prod.subtotal = cantidad * this.prod.precio;
+
+    this.arreglo_productos.push(this.prod);
+    console.log(this.arreglo_productos);
   }
 
 }

@@ -41,7 +41,8 @@
                                     <td>{{item.precio | currency}}</td>
                                     <td>
                                         <span class="fas fa-check-square"
-                                            style="color: green; font-size: 20px; cursor:pointer"></span>
+                                            style="color: green; font-size: 20px; cursor:pointer"
+                                            (click)="seleccionar(item, item.id_obra)"></span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -86,10 +87,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr *ngFor="let itemp of arreglo_productos">
+                                <td>{{itemp["titulo"]}}</td>
+                                <td>{{itemp["precio"] | currency}}</td>
+                                <td>{{itemp["cantidad"]}}</td>
+                                <td>{{itemp["subtotal"] | currency}}</td>
+                                <td>
+                                    <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;" title="Eliminar"></span>
+                                </td>
+                            </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td colspan="2"></td>
+                                <td><b>Total</b></td>
                                 <td></td>
                                 <td></td>
                             </tr>
