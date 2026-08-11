@@ -87,11 +87,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let itemp of arreglo_productos">
-                                <td>{{itemp["titulo"]}}</td>
-                                <td>{{itemp["precio"] | currency}}</td>
-                                <td>{{itemp["cantidad"]}}</td>
-                                <td>{{itemp["subtotal"] | currency}}</td>
+                            <tr *ngFor="let itemp of matriz_producto">
+                                <td>{{itemp[1]}}</td>
+                                <td>{{itemp[2] | currency}}</td>
+                                <td>{{itemp[3]}}</td>
+                                <td>{{itemp[4] | currency}}</td>
                                 <td>
                                     <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;" title="Eliminar"></span>
                                 </td>
@@ -99,7 +99,7 @@
                             <tr>
                                 <td colspan="2"></td>
                                 <td><b>Total</b></td>
-                                <td></td>
+                                <td>{{total | currency}}</td>
                                 <td></td>
                             </tr>
                         </tbody>
