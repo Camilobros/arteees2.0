@@ -23,6 +23,15 @@ export class Pedidoinsertar {
   arreglo_productos: any = [];
   total: any;
 
+  pedido = {
+    fecha: "",
+    id_cliente: 0,
+    productos: [],
+    subtotal: 0,
+    total: 0,
+    id_artista: 0
+  }
+
 
   constructor(private router: Router, private sobra: Obra, private scliente: Cliente, private spedido : Pedidoservice, private cdr: ChangeDetectorRef) { }
 
@@ -61,9 +70,29 @@ export class Pedidoinsertar {
       this.total = this.total + this.matriz_producto[i][4];
     } 
     console.log(this.matriz_producto);
+    
+
+
 
 
     
   }
 
+  guardar(){ 
+    let fecha = new Date();
+    this.pedido.fecha = `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`;
+    this.pedido.id_cliente = Number(this.cliente[0].id_cliente);
+    this.pedido.productos = this.matriz_producto;
+    this.pedido.subtotal = this.total;
+    this.pedido.total = this.total;
+    this.pedido.id_artista = Number(sessionStorage.getItem('id'));
+    console.log(this.pedido);
+
+    this.spedido.insertar(this.pedido).subscribe((datos:any) => {
+      if(datos['resultado']=='Ok'){
+        console.log(datos['resultado']);
+        this.router.navigate(['pedido']);
+      }
+    });
+  }
 }

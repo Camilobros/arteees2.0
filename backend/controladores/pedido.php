@@ -16,6 +16,8 @@
         case 'insertar':
             $json = file_get_contents('php://input');
             $params = json_decode($json);
+            $texto_arreglo = serialize($params->texto_arreglo);
+            $params->productos = $texto_arreglo;
 
             $vec = $pedido->insertar($params);
             break;
