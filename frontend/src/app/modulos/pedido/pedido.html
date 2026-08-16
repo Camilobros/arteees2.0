@@ -1,0 +1,62 @@
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Pedidos</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Pedidos</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <hr>
+        <input type="button" value="Insertar pedido" class="btn btn-warning" (click)="insertar( )">
+        <hr>
+        <div id="tabla">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-11">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>No. venta</th>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Descripcion</th>
+                                <th>Total</th>
+                                <th>Artista Vendedor</th>
+                                <th>Acciones</th>
+                            </tr>
+                            <tr *ngFor="let item of ventas">
+                                <td style="color: red;">{{item.id_venta}}</td>
+                                <td>{{item.fecha}}</td>
+                                <td>{{item.nombre_cliente}}</td>
+                                <td>
+                                    <span>Ver</span>
+                                </td>
+                                <td>{{item.total | currency}}</td>
+                                <td>{{item.nombre_artista}}</td>
+                                <td>
+                                    <span class="fas fa-edit" style="color: blue; cursor: pointer"
+                                        title="Editar"></span>
+                                    <span class="fas fa-minus-square" style="color: red; cursor: pointer"
+                                        title="Anular"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>

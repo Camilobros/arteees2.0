@@ -1,0 +1,112 @@
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Insertar Pedidos</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Insertar Pedidos</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="producto">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <caption>OBRAS</caption>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>stock</th>
+                                    <th>precio</th>
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of obras">
+                                    <td>{{item.id_obra}}</td>
+                                    <td>{{item.titulo}}</td>
+                                    <td>{{item.stock}} </td>
+                                    <td>{{item.precio | currency}}</td>
+                                    <td>
+                                        <span class="fas fa-check-square"
+                                            style="color: green; font-size: 20px; cursor:pointer"
+                                            (click)="seleccionar(item, item.id_obra)"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="table-responsive">
+                    <table class="tabla">
+                        <thead>
+                            <caption>CLIENTE</caption>
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <input type="text" class="form-control"
+                                                placeholder="identificacion del cliente" [(ngModel)]="ident_cliete"
+                                                (keyup)="consulta_cliente()">
+                                        </div>
+                                        <div class="col-lg-9">
+                                            {{nombre_cliente}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <caption>Pedido</caption>
+                            <tr>
+                                <th>producto</th>
+                                <th>V. unitario</th>
+                                <th>cantidad</th>
+                                <th>subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let itemp of matriz_producto">
+                                <td>{{itemp[1]}}</td>
+                                <td>{{itemp[2] | currency}}</td>
+                                <td>{{itemp[3]}}</td>
+                                <td>{{itemp[4] | currency}}</td>
+                                <td>
+                                    <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;" title="Eliminar"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td><b>Total</b></td>
+                                <td>{{total | currency}}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <input type="button" value="Guardar Pedido" class="btn btn-warning" style="width: 100%;" (click)="guardar( )">
+            </div>
+        </div>
+    </div>
+</section>

@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class Cliente {
-  
-  url = "http://localhost/proyectos/arteees2.0/backend/controladores/cliente.php";
+export class Pedidoservice {
 
-  constructor(private http: HttpClient){};
+  url = "http://localhost/proyectos/arteees2.0/backend/controladores/pedido.php";
+
+  constructor(private http: HttpClient){ }
 
   consulta(){
     return this.http.get(`${this.url}?control=consulta`);
@@ -24,15 +24,11 @@ export class Cliente {
 
   eliminar(id: number){
     return this.http.get(`${this.url}?control=eliminar&id=${id}`); 
-  }
+  } 
 
-  filtro(dato: any) {
+  filtro(dato:any){
     return this.http.get(`${this.url}?control=filtro&dato=${dato}`);
-  }
 
-  ccliente(dato: any) {
-    return this.http.get(`${this.url}?control=ccliente&dato=${dato}`);
   }
-
   
 }

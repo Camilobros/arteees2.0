@@ -53,5 +53,43 @@
 
             return $vec;
         }
+
+        public function filtro($dato) {
+            $sql = "SELECT * FROM cliente 
+                    WHERE id_cliente LIKE '%$dato%' 
+                    OR nombre LIKE '%$dato%' 
+                    OR correo LIKE '%$dato%' 
+                    OR direccion LIKE '%$dato%' 
+                    ORDER BY nombre";
+                    
+            $res = mysqli_query($this->conexion, $sql) or die('Fallo en el filtro');
+    
+            $vec = [];
+            while($row = mysqli_fetch_array($res)) {
+                $vec[] = $row;
+            }
+            return $vec;
+        }
+
+
+        public function consultar_cliente($dato) {
+            $sql = "SELECT * FROM cliente 
+                    WHERE id_cliente LIKE '%$dato%' 
+                    ORDER BY nombre";
+                    
+            $res = mysqli_query($this->conexion, $sql) or die('Fallo en el filtro');
+    
+            $vec = [];
+            while($row = mysqli_fetch_array($res)) {
+                $vec[] = $row;
+            }
+            return $vec;
+        }
+
+
+
+
+
+
     }
 ?>
