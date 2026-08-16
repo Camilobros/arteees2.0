@@ -89,8 +89,7 @@ export class Pedidoinsertar {
     console.log(this.pedido);
 
     this.spedido.insertar(this.pedido).subscribe((datos:any) => {
-      if(datos['resultado']=='Ok'){
-        console.log(datos['resultado']);
+      if(datos['resultado']=='OK'){
         this.router.navigate(['pedido']);
       }
     });
