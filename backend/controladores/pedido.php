@@ -34,6 +34,12 @@
 
             $vec = $pedido->eliminar($id);
             break;
+
+        case 'productos':
+            $id = $_GET['id'];
+            $vec = $pedido->consultap($id);
+        
+        break;    
     }
 
     $datos = json_encode($vec, JSON_UNESCAPED_UNICODE);

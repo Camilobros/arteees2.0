@@ -59,6 +59,19 @@
             return $vec;
         }
 
+        public function consultap($id){
+            $con = "SELECT productos FROM venta WHERE id_venta = $id";
+            $res = mysqli_query($this->conexion, $con);
+            $row = mysqli_fetch_array($res);
+            $vec = unserialize($row[0]);
+            return $vec;
+
+        }
+
+
+
+
+
         public function editar($id, $params){
             $sql = "UPDATE venta SET 
                         id_cliente = $params->id_cliente, 

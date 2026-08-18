@@ -13,6 +13,10 @@ export class Pedidoservice {
   consulta(){
     return this.http.get(`${this.url}?control=consulta`);
   }
+  
+  consultap(id:number){
+    return this.http.get(`${this.url}?control=productos&id=${id}`);
+  }
 
   insertar(params: any){
     return this.http.post(`${this.url}?control=insertar`, JSON.stringify(params));
