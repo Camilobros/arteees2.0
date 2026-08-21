@@ -40,7 +40,7 @@
                                 <td>{{item.fecha}}</td>
                                 <td>{{item.nombre_cliente}}</td>
                                 <td>
-                                    <input type="button" class="btn btn-outline-success btn-sm" value="Ver productos">
+                                    <input type="button" class="btn btn-outline-success btn-sm" value="Ver productos" (click)="mostrar_modal(1, item.id_venta)">
                                 </td>
                                 <td>{{item.total | currency}}</td>
                                 <td>{{item.nombre_artista}}</td>
@@ -63,6 +63,27 @@
 
 <!--MODAL-->
 
-<div id="verproductos">
-    sdasda
+<div id="verproductos" *ngIf="modal==true">
+    <table>
+        <tr>
+            <th>id_obra</th>
+            <th>titulo</th>
+            <th>v_uniario</th>
+            <th>cantidad</th>
+            <th>subtotal</th>
+        </tr>
+        <tr *ngFor="let itemp of productos">
+            <td>{{itemp[0]}}</td>
+            <td>{{itemp[1]}}</td>
+            <td>{{itemp[2] | currency}}</td>
+            <td>{{itemp[3]}}</td>
+            <td>{{itemp[4] | currency}}</td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td><b>Total:</b></td>
+            <td></td>
+        </tr>
+    </table>
+    <input type="button" class="btn btn-secondary" value="cerrar" (click)="mostrar_modal(0,1)">
 </div>

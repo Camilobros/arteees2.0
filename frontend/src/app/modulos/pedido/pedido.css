@@ -1,5 +1,11 @@
 #verproductos{
     background-color: wheat;
     position: absolute;
+    padding: 3%;
+    width: 40%;
+    top: 20%;
+    left: 35%;
+    z-index: 1;
+    border-radius: 20px;
     
 }
