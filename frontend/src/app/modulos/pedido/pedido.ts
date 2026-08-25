@@ -37,6 +37,12 @@ export class Pedido {
     this.spedido.consultap(id).subscribe((result: any) => {
       this.productos = result;
 
+      this.total = 0;
+
+      for(let i=0;i<this.productos.length;i++){
+        this.total = this.total + this.productos[i][4];
+      }
+
       this.cdr.detectChanges();
 
     });
