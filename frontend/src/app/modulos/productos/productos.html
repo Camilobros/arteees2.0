@@ -37,13 +37,13 @@
 
             <span style="color: red;" *ngIf="validar_estado == false">Seleccionar un estado</span>
         </div>
-        <select class="form-control form-select" [(ngModel)]="obj_producto.id_artista">
-            <option value="0" disabled selected>Seleccione un artista...</option>
-
-            <option *ngFor="let itema of artista" value="{{itema.id_artista}}">{{itema.nombre}}</option>
-        </select>
-
-        <span style="color: red;" *ngIf="validar_id_artista == false">Seleccionar un artista</span>
+        <div class="col-lg-4">
+            <select class="form-select" [(ngModel)]="obj_producto.id_artista">
+                <option value="0" disabled selected>Seleccione un artista...</option>
+                <option *ngFor="let itema of artista" value="{{itema.id_artista}}">{{itema.nombre}}</option>
+            </select>
+            <span style="color: red;" *ngIf="validar_id_artista == false">Seleccionar un artista</span>
+        </div>
         <div class="col-lg-4">
             <input type="text" class="form-control" placeholder="stock" [(ngModel)]="obj_producto.stock">
             <span style="color: red;" *ngIf="validar_stock == false">Insertar stock</span>
