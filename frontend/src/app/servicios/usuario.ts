@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class Usuario {
   
-  url = "http://localhost/proyectos/arteees2.0/backend/controladores/usuario.php";
+  //url = "http://localhost/proyectos/arteees2.0/backend/controladores/usuario.php";
+  url = "https://api-artes.infinityfreeapp.com/backend/controladores/usuario.php";
 
   constructor(private http: HttpClient){};
 
