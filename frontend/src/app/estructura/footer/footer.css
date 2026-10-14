@@ -1,25 +1,72 @@
-.css-footer{
-    font-size: 1.4rem;
-    color: #fff;
-    animation: flickerNeon 2s infinite;
-    border: 50px solid #fff;
+:host {
+  --surface-container-low: #f5f3ef;
+  --surface-variant: #e4e2de;
+  --outline-variant: #c4c7c7;
+  --on-surface-variant: #444748;
+  --primary: #000000;
+  --secondary: #aa361e;
+  display: block;
 }
 
+.footer-surface {
+  font-family: 'Hanken Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 
-@keyframes flickerNeon {
+/* Colores del tema */
+.bg-surface-container-low {
+  background-color: var(--surface-container-low);
+}
 
-    0%, 18%, 22%, 25%, 53%, 57%, 100% {
-        color: #fff;
-        text-shadow:
-            0 0 5px #fff,
-            0 0 10px #3f51b5,
-            0 0 20px #3f51b5,
-            0 0 40px #6a1b9a,
-            0 0 80px #6a1b9a;
-    }
+.border-surface-variant {
+  border-color: var(--surface-variant);
+}
 
-    20%, 24%, 55% {
-        color: #222; 
-        text-shadow: none;
-    }
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-on-surface-variant {
+  color: var(--on-surface-variant);
+}
+
+.text-outline-variant {
+  color: var(--outline-variant);
+}
+
+/* Estados Hover */
+.hover\:text-primary:hover {
+  color: var(--primary);
+}
+
+.hover\:text-secondary:hover {
+  color: var(--secondary);
+}
+
+/* Tipografías */
+.font-headline-sm {
+  font-family: 'Newsreader', serif;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+.font-body-sm {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+.font-label-sm {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
 }

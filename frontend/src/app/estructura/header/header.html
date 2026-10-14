@@ -1,17 +1,159 @@
-<!-- ================= HEADER ================= -->
-<nav class="navbar navbar-dark bg-primary px-3 d-flex align-items-center">
-    <button class="btn btn-light d-md-none" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
-        <i class="bi bi-list"></i>
+<!-- TOP APP BAR (Barra Superior) -->
+<header class="header-surface sticky top-0 z-40 w-full px-6 md:px-12 py-4 bg-surface flex justify-between items-center border-b border-surface-variant">
+  <!-- Brand Anchor -->
+  <a routerLink="/dashboard" class="font-headline-md italic tracking-tight text-on-surface hover:text-secondary transition-colors duration-150 no-underline cursor-pointer">
+    Galería Ópera
+  </a>
+
+  <!-- Trailing Action Cluster (Avatar + Botón Hamburguesa) -->
+  <div class="flex items-center space-x-5">
+    <!-- Profile Action -->
+    <button
+      type="button"
+      (click)="irA('usuario')"
+      [title]="nombre ? 'Conectado como: ' + nombre : 'Iniciar sesión / Perfil'"
+      aria-label="Perfil del artista y coleccionista"
+      class="relative group p-0.5 rounded-full border border-surface-variant hover:border-primary transition-colors focus:outline-none focus:ring-1 focus:ring-primary bg-transparent">
+      <img
+        alt="Retrato estilizado de artista con bigote"
+        class="w-9 h-9 rounded-full object-cover grayscale contrast-125"
+        src="https://lh3.googleusercontent.com/aida/AEtjO1U5EvUzv1rWQ5avRst0g5RIcXllrfiyjdgi8vLYSXhycjWhPdXjftxScxWqkhiGdq9AoFo9stpH0bVpCWIDvAJNXoSaiyJYpcVDO1MWXUAwOjSLx87_G_M9IRLx-DtAyvarY9Rn1MLEwxKUcPBylGSDEKznRQtbAH7vfGI6btW47XEtxylSFNLRqXJqDbn3_2kXIxAZXTrLw43H2uvHqr3kqRJgnlI1E2XZEzMM02enhXF5ACC8dWa2DCo" />
+      <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-secondary rounded-full ring-2 ring-surface"></span>
     </button>
 
-    <span class="navbar-brand">SketchMind</span>
+    <!-- Hamburger Action -->
+    <button
+      type="button"
+      (click)="openDrawer()"
+      aria-label="Abrir menú de navegación"
+      class="flex items-center justify-center p-2 text-primary hover:text-secondary transition-colors duration-150 focus:outline-none bg-transparent border-0">
+      <span class="material-symbols-outlined text-[26px]">menu</span>
+    </button>
+  </div>
+</header>
 
-    <ul class="header-bar">
-        <li class="nav-item"> hola, que gusto verte de nuevo {{nombre}}</li>
-        
+<!-- BACKDROP (Fondo oscuro al abrir el menú) -->
+<div
+  (click)="closeDrawer()"
+  class="fixed inset-0 bg-[#1A1A1A]/40 backdrop-blur-[2px] z-50 transition-opacity duration-300"
+  [ngClass]="isDrawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'">
+</div>
 
-    <span class="bton-cerrar-sesion" style="cursor: pointer" (click)="cerrar()">Cerrar sesion</span>
+<!-- NAVIGATION DRAWER (Menú Hamburguesa Lateral) -->
+<aside
+  aria-label="Menú principal de la galería"
+  class="drawer-surface fixed top-0 right-0 h-full w-80 max-w-full z-50 bg-surface-container-lowest border-l border-surface-variant flex flex-col justify-between p-8 transition-transform duration-300 ease-in-out shadow-2xl"
+  [ngClass]="isDrawerOpen ? 'translate-x-0' : 'translate-x-full'">
 
-    </ul>
-</nav>
+  <!-- Parte Superior del Menú -->
+  <div>
+    <div class="flex items-center justify-between pb-6 border-b border-surface-variant">
+      <div class="flex items-center space-x-3">
+        <img
+          alt="Retrato estilizado de artista con bigote"
+          class="w-8 h-8 rounded-full border border-surface-variant grayscale object-cover"
+          src="https://lh3.googleusercontent.com/aida/AEtjO1U5EvUzv1rWQ5avRst0g5RIcXllrfiyjdgi8vLYSXhycjWhPdXjftxScxWqkhiGdq9AoFo9stpH0bVpCWIDvAJNXoSaiyJYpcVDO1MWXUAwOjSLx87_G_M9IRLx-DtAyvarY9Rn1MLEwxKUcPBylGSDEKznRQtbAH7vfGI6btW47XEtxylSFNLRqXJqDbn3_2kXIxAZXTrLw43H2uvHqr3kqRJgnlI1E2XZEzMM02enhXF5ACC8dWa2DCo" />
+        <div>
+          <h2 class="font-headline-sm italic text-on-surface leading-tight m-0">Galería Ópera</h2>
+          <p class="font-body-sm text-on-surface-variant m-0">Directorio Curatorial &amp; Mercado</p>
+        </div>
+      </div>
 
+      <!-- Botón Cerrar (X) -->
+      <button
+        type="button"
+        (click)="closeDrawer()"
+        aria-label="Cerrar menú"
+        class="p-1 text-on-surface-variant hover:text-primary transition-colors focus:outline-none bg-transparent border-0">
+        <span class="material-symbols-outlined text-[22px]">close</span>
+      </button>
+    </div>
+
+    <!-- Lista de Navegación -->
+    <nav class="mt-8 flex flex-col space-y-4">
+      <a
+        (click)="irA('dashboard')"
+        class="group flex items-center justify-between py-1.5 border-b border-primary text-primary font-title-md transition-all duration-150 cursor-pointer no-underline">
+        <span class="flex items-center space-x-3">
+          <span class="material-symbols-outlined text-[20px] fill-icon">explore</span>
+          <span>Explorar</span>
+        </span>
+        <span class="font-label-sm text-secondary tracking-widest uppercase">Catálogo</span>
+      </a>
+
+      <a
+        (click)="irA('productos')"
+        class="group flex items-center space-x-3 py-1.5 text-on-surface-variant hover:text-secondary hover:pl-1 transition-all duration-150 font-body-md cursor-pointer no-underline">
+        <span class="material-symbols-outlined text-[20px]">upload</span>
+        <span>Subir Obra</span>
+      </a>
+
+      <a
+        (click)="irA('clientes')"
+        class="group flex items-center space-x-3 py-1.5 text-on-surface-variant hover:text-secondary hover:pl-1 transition-all duration-150 font-body-md cursor-pointer no-underline">
+        <span class="material-symbols-outlined text-[20px]">palette</span>
+        <span>Artistas</span>
+      </a>
+
+      <a
+        (click)="irA('categoria')"
+        class="group flex items-center space-x-3 py-1.5 text-on-surface-variant hover:text-secondary hover:pl-1 transition-all duration-150 font-body-md cursor-pointer no-underline">
+        <span class="material-symbols-outlined text-[20px]">collections_bookmark</span>
+        <span>Colecciones</span>
+      </a>
+
+      <a
+        (click)="irA('pedido')"
+        class="group flex items-center space-x-3 py-1.5 text-on-surface-variant hover:text-secondary hover:pl-1 transition-all duration-150 font-body-md cursor-pointer no-underline">
+        <span class="material-symbols-outlined text-[20px]">monetization_on</span>
+        <span>Ventas</span>
+      </a>
+
+      <a
+        (click)="irA('usuario')"
+        class="group flex items-center space-x-3 py-1.5 text-on-surface-variant hover:text-secondary hover:pl-1 transition-all duration-150 font-body-md cursor-pointer no-underline">
+        <span class="material-symbols-outlined text-[20px]">person</span>
+        <span>Perfil</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Parte Inferior del Menú (Botón Subir Obra + Configuración/Sesión) -->
+  <div class="pt-6 border-t border-surface-variant flex flex-col space-y-4">
+    <button
+      type="button"
+      (click)="irA('productos')"
+      class="w-full bg-primary hover:bg-secondary text-surface py-3 px-4 font-label-md tracking-wider transition-colors duration-150 flex items-center justify-center space-x-2 border-0 cursor-pointer">
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      <span>Subir Obra</span>
+    </button>
+
+    <div class="flex items-center justify-between">
+      <a
+        (click)="irA('usuario')"
+        class="flex items-center space-x-2 text-on-surface-variant hover:text-primary transition-colors font-body-sm cursor-pointer no-underline">
+        <span class="material-symbols-outlined text-[18px]">settings</span>
+        <span>Configuración</span>
+      </a>
+
+      <!-- Acción de Iniciar / Cerrar Sesión -->
+      @if (nombre) {
+        <button
+          type="button"
+          (click)="cerrar()"
+          class="flex items-center space-x-1 text-secondary hover:text-primary transition-colors font-body-sm bg-transparent border-0 cursor-pointer p-0">
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          <span>Salir</span>
+        </button>
+      } @else {
+        <button
+          type="button"
+          (click)="irA('login')"
+          class="flex items-center space-x-1 text-on-surface-variant hover:text-primary transition-colors font-body-sm bg-transparent border-0 cursor-pointer p-0">
+          <span class="material-symbols-outlined text-[16px]">login</span>
+          <span>Ingresar</span>
+        </button>
+      }
+    </div>
+  </div>
+</aside>
