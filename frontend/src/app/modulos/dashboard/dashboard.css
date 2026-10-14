@@ -1,13 +1,164 @@
-.card {
-    border-radius: 10px;
-    transition: 0.3s;
+/* Variables de la paleta Galería Ópera */
+:host {
+  --surface: #fbf9f5;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f5f3ef;
+  --surface-container: #efeeea;
+  --surface-variant: #e4e2de;
+  --on-surface: #1b1c1a;
+  --on-surface-variant: #444748;
+  --primary: #000000;
+  --secondary: #aa361e;
+  display: block;
 }
 
-.card:hover {
-    transform: scale(1.02);
+.dashboard-surface {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 15px;
+  line-height: 22px;
+  -webkit-font-smoothing: antialiased;
 }
 
-h2 {
-    font-weight: bold;
+/* Configuración de íconos Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
 }
 
+.material-symbols-outlined.fill-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Scrollbar personalizada para las píldoras de categorías */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #FBF9F5;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #E4E2DE;
+}
+
+/* Clases de colores personalizados del tema */
+.bg-surface { background-color: var(--surface); }
+.bg-surface\/90 { background-color: rgba(251, 249, 245, 0.9); }
+.bg-surface-container-lowest { background-color: var(--surface-container-lowest); }
+.bg-surface-container-low { background-color: var(--surface-container-low); }
+.bg-surface-container { background-color: var(--surface-container); }
+.bg-surface-variant { background-color: var(--surface-variant); }
+.bg-primary { background-color: var(--primary); }
+.bg-secondary { background-color: var(--secondary); }
+
+.text-surface { color: var(--surface); }
+.text-on-surface { color: var(--on-surface); }
+.text-on-surface-variant { color: var(--on-surface-variant); }
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+
+.border-surface-variant { border-color: var(--surface-variant); }
+.border-primary { border-color: var(--primary); }
+
+/* Estados Hover personalizados */
+.hover\:bg-surface:hover { background-color: var(--surface); }
+.hover\:bg-surface-container:hover { background-color: var(--surface-container); }
+.hover\:bg-primary:hover { background-color: var(--primary); }
+.hover\:bg-secondary:hover { background-color: var(--secondary); }
+.hover\:text-surface:hover { color: var(--surface); }
+.hover\:text-primary:hover { color: var(--primary); }
+.hover\:text-secondary:hover { color: var(--secondary); }
+.hover\:border-primary:hover { border-color: var(--primary); }
+
+.group:hover .group-hover\:text-primary { color: var(--primary); }
+.group:hover .group-hover\:text-secondary { color: var(--secondary); }
+
+/* Tipografías y escalas (Newsreader & Hanken Grotesk) */
+.font-display-lg {
+  font-family: 'Newsreader', serif;
+  font-size: 56px;
+  line-height: 64px;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.font-headline-lg {
+  font-family: 'Newsreader', serif;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+}
+
+.font-headline-sm {
+  font-family: 'Newsreader', serif;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 500;
+}
+
+.font-title-lg {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.font-title-md {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+.font-body-lg {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 17px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+.font-body-md {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+.font-body-sm {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+.font-label-md {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.font-label-sm {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .md\:font-display-lg {
+    font-family: 'Newsreader', serif;
+    font-size: 56px;
+    line-height: 64px;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+}
