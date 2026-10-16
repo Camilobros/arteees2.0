@@ -16,7 +16,9 @@ export const routes: Routes = [
         path: '', component: Main,
         children:
         [
-            {path: 'dashboard', component: Dashboard , canActivate : [validaruserGuard]},
+
+            {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+            {path: 'dashboard', component: Dashboard},
             {path: 'clientes', component: Clientes  , canActivate : [validaruserGuard]},
             {path: 'productos', component: Productos  , canActivate : [validaruserGuard]},
             {path: 'pedido', component: Pedido  , canActivate : [validaruserGuard]},
@@ -25,7 +27,7 @@ export const routes: Routes = [
             {path: 'pedidoins', component: Pedidoinsertar  , canActivate : [validaruserGuard]},
 
 
-            {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
+            
             
         ]
     },

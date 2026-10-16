@@ -1,49 +1,101 @@
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-
+:host {
+  --surface: #fbf9f5;
+  --surface-container-lowest: #ffffff;
+  --surface-variant: #e4e2de;
+  --on-surface: #1b1c1a;
+  --on-surface-variant: #444748;
+  --primary: #000000;
+  --secondary: #aa361e;
+  display: block;
 }
 
-.navbar-brand:hover {
-    animation: neonGlow 1.5s infinite alternate;
+.header-surface,
+.drawer-surface {
+  font-family: 'Hanken Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-@keyframes neonGlow {
-    from {
-        text-shadow: 
-            0 0 5px #0400ff52,
-            0 0 10px #0400ff83,
-            0 0 20px #0400ff;
-    }
-    to {
-        text-shadow: 
-            0 0 10px #ffffff,
-            0 0 20px #ffffff,
-            0 0 40px #ffffff;
-    }
+/* Configuración de íconos Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
 }
 
-.bton-cerrar-sesion{
-    color: azure;
-    
+.material-symbols-outlined.fill-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
-.bton-cerrar-sesion:hover{
-    animation: neonGlow2 1.5s infinite alternate;
 
+/* Colores de fondo y texto del tema */
+.bg-surface { background-color: var(--surface); }
+.bg-surface-container-lowest { background-color: var(--surface-container-lowest); }
+.bg-primary { background-color: var(--primary); }
+.bg-secondary { background-color: var(--secondary); }
+
+.text-surface { color: var(--surface); }
+.text-on-surface { color: var(--on-surface); }
+.text-on-surface-variant { color: var(--on-surface-variant); }
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+
+.border-surface-variant { border-color: var(--surface-variant); }
+.border-primary { border-color: var(--primary); }
+.ring-surface { --tw-ring-color: var(--surface); }
+
+/* Efectos Hover */
+.hover\:bg-secondary:hover { background-color: var(--secondary); }
+.hover\:text-primary:hover { color: var(--primary); }
+.hover\:text-secondary:hover { color: var(--secondary); }
+.hover\:border-primary:hover { border-color: var(--primary); }
+
+/* Escalas tipográficas (Newsreader & Hanken Grotesk) */
+.font-headline-md {
+  font-family: 'Newsreader', serif;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+  font-weight: 400;
 }
-@keyframes neonGlow2 {
-    from {
-        text-shadow: 
-            0 0 5px #aa00ff52,
-            0 0 10px #da0bff83,
-            0 0 20px #a800ae;
-    }
-    to {
-        text-shadow: 
-            0 0 10px #980baa,
-            0 0 20px #850689,
-            0 0 40px #f700ff;
-    }
+
+.font-headline-sm {
+  font-family: 'Newsreader', serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.font-title-md {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+.font-body-md {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+.font-body-sm {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+.font-label-md {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.font-label-sm {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
 }

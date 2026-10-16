@@ -1,149 +1,632 @@
-<nav>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-        <li class="breadcrumb-item active">Productos (Obras)</li>
-    </ol>
-</nav>
+<div class="productos-surface min-h-screen w-full">
+  <!-- ================= MAIN CANVAS ================= -->
+  <main class="flex-1 w-full max-w-[1360px] mx-auto px-6 md:px-12 py-8">
 
-<input type="button" value="insertar obra" class="btn btn-warning" (click)="mostrar_form('ver')">
-
-<div id="formulario" *ngIf="mform==true">
-
-    <div class="row">
-        <div class="col-lg-4">
-            <input type="text" class="form-control" placeholder="titulo" [(ngModel)]="obj_producto.titulo">
-            <span style="color: red;" *ngIf="validar_titulo == false">Insertar titulo</span>
-        </div>
-        <div class="col-lg-4">
-            <input type="text" class="form-control" placeholder="descripcion" [(ngModel)]="obj_producto.descripcion">
-            <span style="color: red;" *ngIf="validar_descripcion == false">Insertar descripcion</span>
-        </div>
-        <div class="col-lg-4">
-            <input type="text" class="form-control" placeholder="precio" [(ngModel)]="obj_producto.precio">
-            <span style="color: red;" *ngIf="validar_precio == false">Insertar precio</span>
-        </div>
+    <!-- BREADCRUMBS & CONTEXT BAR -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <nav class="flex items-center gap-2 text-on-surface-variant">
+        <a routerLink="/dashboard" class="font-body-sm hover:text-primary transition-colors no-underline text-on-surface-variant">Inicio</a>
+        <span class="text-[12px] opacity-40">/</span>
+        <a routerLink="/dashboard" class="font-body-sm hover:text-primary transition-colors no-underline text-on-surface-variant">Directorio de Arte</a>
+        <span class="text-[12px] opacity-40">/</span>
+        <span class="font-body-sm text-primary font-medium">Gestión de Catálogo &amp; Inventario Curatorial</span>
+      </nav>
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 bg-surface-container border border-surface-container-high text-on-surface-variant font-label-sm self-start sm:self-auto">
+        <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+        <span>PROTOCOLO MAESTRO 2026 · REGISTRO ACTIVO</span>
+      </div>
     </div>
 
-    <br>
+    <!-- PAGE HERO HEADER WITH CTA BUTTON -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-surface-container-highest">
+      <div>
+        <h1 class="font-headline-lg lg:font-display-lg text-on-surface tracking-tight m-0">
+          Catálogo &amp; Inventario Curatorial
+        </h1>
+        <p class="font-body-md text-on-surface-variant max-w-2xl mt-2 font-light mb-0">
+          Control integral de fondos artísticos, procedencia notarial, certificación de autoría física y piezas generadas por IA de Galería Ópera.
+        </p>
+      </div>
 
-    <div class="row">
-        <div class="col-lg-4">
-            <select class="form-select" [(ngModel)]="obj_producto.estado">
-                <option value="" disabled selected>Seleccione un estado...</option>
-                <option value="disponible">disponible</option>
-                <option value="reservado">reservado</option>
-                <option value="vendido">vendido</option>
-            </select>
-
-            <span style="color: red;" *ngIf="validar_estado == false">Seleccionar un estado</span>
-        </div>
-        <div class="col-lg-4">
-            <select class="form-select" [(ngModel)]="obj_producto.id_artista">
-                <option value="0" disabled selected>Seleccione un artista...</option>
-                <option *ngFor="let itema of artista" value="{{itema.id_artista}}">{{itema.nombre}}</option>
-            </select>
-            <span style="color: red;" *ngIf="validar_id_artista == false">Seleccionar un artista</span>
-        </div>
-        <div class="col-lg-4">
-            <input type="text" class="form-control" placeholder="stock" [(ngModel)]="obj_producto.stock">
-            <span style="color: red;" *ngIf="validar_stock == false">Insertar stock</span>
-        </div>
+      <div class="flex items-center gap-3 self-start lg:self-auto">
+        <button
+          type="button"
+          (click)="limpiar(); botones_form = false; mostrar_form(mform ? 'no ver' : 'ver')"
+          class="group relative px-6 py-3.5 bg-primary text-surface font-label-md tracking-wider hover:bg-secondary transition-all duration-200 flex items-center gap-3 border border-primary shadow-sm cursor-pointer">
+          <span class="material-symbols-outlined text-[20px] transition-transform duration-200 group-hover:scale-110">add_circle</span>
+          <span>+ Subir Obra</span>
+          <span class="ml-1 text-[9px] uppercase px-1.5 py-0.5 bg-surface text-primary font-semibold flex items-center gap-1">
+            <span>{{ mform ? 'Plegar' : 'Desplegar' }}</span>
+            <span class="material-symbols-outlined text-[12px]">{{ mform ? 'expand_less' : 'expand_more' }}</span>
+          </span>
+        </button>
+      </div>
     </div>
 
-    <br>
-
-<div class="row">
-            <div class="col-lg-4" *ngIf="botones_form == false">
-                <input type="button" value="Guardar Obra" class="btn btn-primary" style="width: 100%;" (click)="validar('guardar')">
-            </div>
-
-            <div class="col-lg-4" *ngIf="botones_form == true">
-                <input type="button" value="Actualizar Obra" class="btn btn-warning" style="width: 100%;" (click)="validar('editar')">
-            </div>
-
-            <div class="col-lg-4">
-                <input type="button" value="Cancelar" class="btn btn-secondary" style="width: 100%" (click)="mostrar_form('no ver')">
-            </div>
-            <div class="col-lg-4"></div>
+    <!-- METRIC SUMMARY CARDS -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+      <div class="p-5 bg-surface-container-lowest border border-surface-container-highest">
+        <div class="flex items-center justify-between text-on-surface-variant">
+          <span class="font-label-sm uppercase tracking-wider">Obras Registradas</span>
+          <span class="material-symbols-outlined text-[20px] text-primary">collections</span>
         </div>
-
-    <br>
-
-
-</div>
-
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-primary">Gestión de Productos</h2>
-</div>
-
-<div class="card shadow-sm p-3 mb-4">
-    <div class="row">
-        <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Buscar obra por título o artista...">
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="font-headline-md font-medium text-on-surface">{{ productos.length }}</span>
+          <span class="font-label-sm text-[#137333]">Activas en BD</span>
         </div>
-        <div class="col-md-3">
-            <select class="form-select">
-                <option>Filtrar por estado</option>
-                <option>Disponible</option>
-                <option>Reservado</option>
-            </select>
+        <span class="block mt-1 font-body-sm text-on-surface-variant">{{ totalHumanos }} Humano · {{ totalIA }} Síntesis IA</span>
+      </div>
+
+      <div class="p-5 bg-surface-container-lowest border border-surface-container-highest">
+        <div class="flex items-center justify-between text-on-surface-variant">
+          <span class="font-label-sm uppercase tracking-wider">En Exhibición Activa</span>
+          <span class="material-symbols-outlined text-[20px] text-primary">visibility</span>
         </div>
-        <div class="col-md-3">
-            <button class="btn btn-secondary w-100">Buscar</button>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="font-headline-md font-medium text-on-surface">{{ productosFiltrados.length }}</span>
+          <span class="font-label-sm text-on-surface-variant">Salas 1 a 4</span>
         </div>
+        <span class="block mt-1 font-body-sm text-on-surface-variant">Sincronizado con el Dashboard</span>
+      </div>
+
+      <div class="p-5 bg-surface-container-lowest border border-surface-container-highest">
+        <div class="flex items-center justify-between text-on-surface-variant">
+          <span class="font-label-sm uppercase tracking-wider">Valor Valuado Fondo</span>
+          <span class="material-symbols-outlined text-[20px] text-primary">payments</span>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="font-headline-md font-medium text-on-surface">$18.4M</span>
+          <span class="font-label-sm text-outline">COP</span>
+        </div>
+        <span class="block mt-1 font-body-sm text-on-surface-variant">Certificación notarial al día</span>
+      </div>
+
+      <div class="p-5 bg-surface-container-lowest border border-surface-container-highest">
+        <div class="flex items-center justify-between text-on-surface-variant">
+          <span class="font-label-sm uppercase tracking-wider">En Espera de Cédula</span>
+          <span class="material-symbols-outlined text-[20px] text-secondary">pending_actions</span>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="font-headline-md font-medium text-secondary">4</span>
+          <span class="font-label-sm text-[#8C5338]">Requiere validación</span>
+        </div>
+        <span class="block mt-1 font-body-sm text-on-surface-variant">Firma digital pendiente</span>
+      </div>
     </div>
-</div>
 
-<div class="card shadow-sm p-3">
-    <h5 class="mb-3">Catálogo de Obras de Arte</h5>
+    <!-- SEARCH, FILTER & INVENTORY TOOLBAR -->
+    <div class="mt-10 p-4 bg-surface-container-low border border-surface-container-high flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex flex-wrap items-center gap-3 flex-1">
+        <div class="relative flex-1 min-w-[240px]">
+          <input
+            type="text"
+            [(ngModel)]="filtroTexto"
+            name="filtroTexto"
+            placeholder="Buscar por título de obra, artista o descripción..."
+            class="w-full bg-surface-container-lowest border border-surface-container-highest pl-9 pr-4 py-2 font-body-sm focus:border-primary focus:ring-0" />
+          <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-on-surface-variant text-[18px]">search</span>
+        </div>
 
-    <div class="table-responsive">
-        <table class="table table-hover align-middle">
-            <thead class="table-primary">
-                <tr>
-                    <th>#</th>
-                    <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Artista</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
+        <select
+          [(ngModel)]="filtroOrigen"
+          name="filtroOrigen"
+          class="bg-surface-container-lowest border border-surface-container-highest px-3 py-2 font-body-sm focus:border-primary focus:ring-0">
+          <option value="todos">Régimen: Todos</option>
+          <option value="human">Creación Humana</option>
+          <option value="ai">Síntesis Algorítmica / IA</option>
+        </select>
 
-            <tbody>
-                @for (item of productos; track $index) {
-                <tr>
-                    <td>{{item.id_obra}}</td>
-                    <td><strong>{{item.titulo}}</strong></td>
-                    <td>{{item.descripcion}}</td>
-                    <td>{{item.artista}}</td>
-                    <td>${{item.precio}}</td>
-                    <td>{{item.stock}}</td>
-                    <td>
-                        <span class="badge"
-                            [ngClass]="{'bg-success': item.estado === 'disponible', 'bg-warning text-dark': item.estado === 'reservado'}">
-                            {{item.estado}}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="fas fa-edit"
-                            style="color:brown; cursor: pointer; font-size: 1.2rem; margin-right: 10px;"
-                            title="Editar" (click)="cargar_datos(item, item.id_producto)"></span>
-                        <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;"
-                            title="Eliminar" (click)="eliminar(item.id_obra)"></span>
-                    </td>
-                </tr>
-                } @empty {
-                <tr>
-                    <td colspan="8" class="text-center text-muted py-4">
-                        <i class="fas fa-spinner fa-spin"></i> Cargando productos desde PHP...
-                    </td>
-                </tr>
+        <select
+          [(ngModel)]="filtroEstado"
+          name="filtroEstado"
+          class="bg-surface-container-lowest border border-surface-container-highest px-3 py-2 font-body-sm focus:border-primary focus:ring-0">
+          <option value="todos">Estado: Todos</option>
+          <option value="disponible">Disponible</option>
+          <option value="reservado">Reservado</option>
+          <option value="vendido">Vendido</option>
+        </select>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          (click)="filtroTexto = ''; filtroEstado = 'todos'; filtroOrigen = 'todos'"
+          class="px-3.5 py-2 border border-surface-container-highest bg-surface-container-lowest text-on-surface-variant hover:text-primary hover:border-primary font-label-sm flex items-center gap-1.5 transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[16px]">tune</span>
+          <span>Limpiar Filtros</span>
+        </button>
+        <button
+          type="button"
+          (click)="consulta()"
+          class="px-3.5 py-2 border border-surface-container-highest bg-surface-container-lowest text-on-surface-variant hover:text-primary hover:border-primary font-label-sm flex items-center gap-1.5 transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[16px]">sync</span>
+          <span>Sincronizar BD</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ARCHIVAL CATALOG TABLE -->
+    <div class="mt-4 border border-surface-container-highest bg-surface-container-lowest overflow-x-auto custom-scroll">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-surface-container-high bg-surface-container-low font-label-sm text-on-surface-variant uppercase tracking-wider">
+            <th class="py-3.5 px-4 font-semibold w-12"># ID</th>
+            <th class="py-3.5 px-4 font-semibold min-w-[260px]">Obra &amp; Título</th>
+            <th class="py-3.5 px-4 font-semibold min-w-[160px]">Artista / Creador</th>
+            <th class="py-3.5 px-4 font-semibold">Régimen</th>
+            <th class="py-3.5 px-4 font-semibold">Disciplina</th>
+            <th class="py-3.5 px-4 font-semibold">Precio</th>
+            <th class="py-3.5 px-4 font-semibold text-center">Stock</th>
+            <th class="py-3.5 px-4 font-semibold">Estado</th>
+            <th class="py-3.5 px-4 font-semibold text-right">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-surface-container-high font-body-md">
+          @for (item of productosFiltrados; track $index) {
+            <tr class="hover:bg-surface-container-low transition-colors duration-150 bg-surface-container-lowest">
+              <td class="py-3.5 px-4 font-mono text-[13px] text-on-surface-variant">
+                {{ item.id_obra < 10 ? '0' + item.id_obra : item.id_obra }}
+              </td>
+
+              <td class="py-3.5 px-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 bg-surface-container-high flex-shrink-0 border border-surface-container-highest overflow-hidden relative">
+                    <img
+                      [src]="obtenerImagenObra(item, $index)"
+                      [alt]="item.titulo"
+                      class="w-full h-full object-cover" />
+                    <span class="absolute bottom-0 inset-x-0 bg-primary/80 text-[8px] text-surface font-label-sm text-center">
+                      {{ item.origen === 'ai' ? 'IA' : 'RAW' }}
+                    </span>
+                  </div>
+                  <div>
+                    <span class="block font-headline-sm italic text-[17px] text-on-surface leading-tight">{{ item.titulo }}</span>
+                    <span class="block font-body-sm text-on-surface-variant">{{ item.descripcion }}</span>
+                  </div>
+                </div>
+              </td>
+
+              <td class="py-3.5 px-4">
+                <span class="block font-medium text-on-surface">{{ item.artista }}</span>
+                <span class="block font-label-sm text-on-surface-variant">Catálogo Oficial</span>
+              </td>
+
+              <!-- Régimen Real desde MySQL (Humano vs IA) -->
+              <td class="py-3.5 px-4">
+                @if (item.origen === 'ai') {
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-surface-container border border-surface-container-highest font-label-sm text-on-surface">
+                    <span class="material-symbols-outlined text-[13px] text-secondary">memory</span> Síntesis IA
+                  </span>
+                } @else {
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-surface-container border border-surface-container-highest font-label-sm text-on-surface">
+                    <span class="material-symbols-outlined text-[13px] text-primary">palette</span> Humano
+                  </span>
                 }
-            </tbody>
-        </table>
-    </div>
-</div>
+              </td>
 
+              <!-- Disciplina -->
+              <td class="py-3.5 px-4 font-mono text-[11px] text-on-surface-variant uppercase">
+                <span class="text-primary font-medium">{{ item.disciplina || 'painting' }}</span>
+                <span class="block">Certificado Notarial</span>
+              </td>
+
+              <td class="py-3.5 px-4 font-title-md text-on-surface">
+                ${{ item.precio | number:'1.0-2' }}
+              </td>
+
+              <td class="py-3.5 px-4 text-center font-mono font-body-sm">
+                {{ item.stock }}
+              </td>
+
+              <td class="py-3.5 px-4">
+                <span
+                  class="inline-flex items-center px-2 py-0.5 font-label-sm font-semibold uppercase border"
+                  [ngClass]="{
+                    'bg-[#E6F4EA] text-[#137333] border-[#CEEAD6]': item.estado === 'disponible',
+                    'bg-[#FFF2E2] text-[#8C5338] border-[#F3D7BE]': item.estado === 'reservado',
+                    'bg-[#ffdad6] text-[#93000a] border-[#ffb4ab]': item.estado === 'vendido'
+                  }">
+                  {{ item.estado }}
+                </span>
+              </td>
+
+              <td class="py-3.5 px-4 text-right">
+                <div class="inline-flex items-center gap-2">
+                  <button
+                    type="button"
+                    (click)="cargar_datos(item, item.id_obra)"
+                    class="p-1 text-on-surface-variant hover:text-primary transition-colors bg-transparent border-0 cursor-pointer"
+                    title="Editar obra">
+                    <span class="material-symbols-outlined text-[18px]">edit</span>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="eliminar(item.id_obra)"
+                    class="p-1 text-on-surface-variant hover:text-error transition-colors bg-transparent border-0 cursor-pointer"
+                    title="Eliminar del catálogo">
+                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="9" class="py-12 px-4 text-center text-on-surface-variant font-body-md">
+                <span class="material-symbols-outlined text-[28px] block mx-auto mb-2 text-secondary">hourglass_empty</span>
+                No se encontraron obras registradas en este filtro...
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ================= FORMULARIO DESPLEGABLE: REGISTRAR / ACTUALIZAR OBRA ================= -->
+    @if (mform) {
+      <div class="mt-8 border border-surface-container-highest bg-surface-container-lowest transition-all duration-300 overflow-hidden shadow-sm" id="registration-container">
+        
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between px-6 md:px-8 py-5 bg-surface-container-low border-b border-surface-container-high gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-10 h-10 border border-primary bg-surface-container-lowest flex items-center justify-center flex-shrink-0">
+              <span class="material-symbols-outlined text-primary text-[24px]">{{ botones_form ? 'edit_note' : 'add_box' }}</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2.5 flex-wrap">
+                <h2 class="font-headline-sm italic text-on-surface m-0">
+                  {{ botones_form ? 'Actualizar Obra Catalogada' : 'Registrar Nueva Obra' }}
+                </h2>
+                <span class="inline-flex items-center px-2 py-0.5 bg-surface-container-highest border border-outline-variant text-on-surface font-label-sm tracking-wide font-medium">
+                  {{ botones_form ? 'ID #' + id_producto : 'NUEVO REGISTRO' }}
+                </span>
+              </div>
+              <p class="font-body-sm text-on-surface-variant mt-0.5 mb-0">
+                Protocolo maestro de catalogación, trazabilidad de procedencia y certificación museal de Galería Ópera.
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            (click)="mostrar_form('no ver')"
+            class="px-3.5 py-1.5 bg-surface-container-lowest hover:bg-surface-variant text-on-surface border border-surface-container-highest hover:border-primary transition-colors flex items-center gap-1.5 font-label-sm cursor-pointer">
+            <span class="material-symbols-outlined text-[18px]">expand_less</span>
+            <span>Plegar Formulario</span>
+          </button>
+        </div>
+
+        <div class="p-6 md:p-8 space-y-8 bg-surface-container-lowest">
+          <div class="space-y-8">
+
+            <!-- 1. Origen y Régimen de Procedencia (Conectado a obj_producto.origen) -->
+            <section class="space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
+                <div>
+                  <h3 class="font-headline-sm text-on-surface m-0">1. Origen y Régimen de Procedencia</h3>
+                  <p class="font-body-sm text-on-surface-variant mt-0.5 mb-0">Selecciona si la obra fue creada por un humano o generada por IA.</p>
+                </div>
+                <span class="font-label-sm text-on-surface-variant border-b border-outline-variant pb-0.5">GUARDADO EN BD</span>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Opción Humano -->
+                <div
+                  (click)="setOriginType('human')"
+                  class="relative block cursor-pointer bg-surface-container-lowest p-5 transition-all duration-200"
+                  [ngClass]="obj_producto.origen === 'human' ? 'border-2 border-primary' : 'border border-surface-container-highest opacity-80 hover:opacity-100'">
+                  <div class="flex items-start justify-between">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 border border-primary bg-surface-container-low flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary text-[20px]">palette</span>
+                      </div>
+                      <div>
+                        <h4 class="font-title-lg text-on-surface m-0">Creación Humana / De Autor</h4>
+                        <p class="font-label-sm text-on-surface-variant m-0">Obra física tradicional o analógica con autoría humana</p>
+                      </div>
+                    </div>
+                    @if (obj_producto.origen === 'human') {
+                      <span class="inline-flex items-center px-2 py-0.5 bg-primary text-surface font-label-sm tracking-widest">SELECCIONADO</span>
+                    }
+                  </div>
+                </div>
+
+                <!-- Opción IA -->
+                <div
+                  (click)="setOriginType('ai')"
+                  class="relative block cursor-pointer bg-surface-container-lowest p-5 transition-all duration-200"
+                  [ngClass]="obj_producto.origen === 'ai' ? 'border-2 border-primary' : 'border border-surface-container-highest opacity-80 hover:opacity-100'">
+                  <div class="flex items-start justify-between">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 border border-outline-variant bg-surface-container-low flex items-center justify-center">
+                        <span class="material-symbols-outlined text-on-surface-variant text-[20px]">memory</span>
+                      </div>
+                      <div>
+                        <h4 class="font-title-lg text-on-surface m-0">Síntesis Algorítmica / IA</h4>
+                        <p class="font-label-sm text-on-surface-variant m-0">Prompt craft, difusión latente &amp; código generativo</p>
+                      </div>
+                    </div>
+                    @if (obj_producto.origen === 'ai') {
+                      <span class="inline-flex items-center px-2 py-0.5 bg-secondary text-surface font-label-sm tracking-widest">SELECCIONADO</span>
+                    }
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- 2. Repositorio Multimedia & Subida Real de Fotos -->
+            <section class="space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
+                <div>
+                  <h3 class="font-headline-sm text-on-surface m-0">2. Repositorio Multimedia &amp; Fotografía de la Obra</h3>
+                  <p class="font-body-sm text-on-surface-variant mt-0.5 mb-0">Sube una imagen desde tu computador (JPG, PNG, WEBP) o pega el enlace directo de la foto.</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Selector de archivo desde la PC -->
+                <label class="lg:col-span-7 border-2 border-dashed border-outline-variant bg-surface-container-low p-6 text-center flex flex-col items-center justify-center min-h-[220px] hover:border-primary transition-colors cursor-pointer group">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    (change)="onFileSelected($event)"
+                    class="sr-only" />
+                  <div class="w-12 h-12 rounded-full border border-surface-container-highest bg-surface-container-lowest flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+                    <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary text-[24px]">cloud_upload</span>
+                  </div>
+                  <p class="font-title-md text-on-surface m-0">Haz clic aquí para subir la foto de la obra desde tu PC</p>
+                  <p class="font-body-sm text-on-surface-variant max-w-sm mt-1">Se guardará automáticamente en el servidor y se mostrará en el Dashboard.</p>
+                  <div class="mt-4 flex items-center gap-3">
+                    <span class="px-4 py-1.5 border border-primary text-primary bg-surface-container-lowest font-label-sm group-hover:bg-primary group-hover:text-surface transition-colors">
+                      Examinar Unidad Local
+                    </span>
+                  </div>
+                </label>
+
+                <!-- Previsualización en vivo de la foto subida o URL -->
+                <div class="lg:col-span-5 border border-surface-container-highest bg-surface-container-low p-4 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-start justify-between pb-3 border-b border-surface-container-high">
+                      <div class="overflow-hidden">
+                        <span class="inline-block px-1.5 py-0.5 bg-surface-container text-on-surface-variant font-label-sm">IMAGEN VINCULADA</span>
+                        <h5 class="font-title-md text-on-surface mt-1 truncate mb-0">{{ nombreArchivoSubido }}</h5>
+                      </div>
+                      @if (obj_producto.imagen) {
+                        <button
+                          type="button"
+                          (click)="obj_producto.imagen = ''; nombreArchivoSubido = 'Ningún archivo seleccionado'"
+                          class="text-on-surface-variant hover:text-error transition-colors p-1 bg-transparent border-0 cursor-pointer"
+                          title="Quitar imagen">
+                          <span class="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                      }
+                    </div>
+
+                    <!-- Vista previa de la foto -->
+                    <div class="mt-3 flex items-center gap-4">
+                      <div class="w-24 h-24 border border-primary bg-surface-container-lowest overflow-hidden flex items-center justify-center flex-shrink-0">
+                        @if (obj_producto.imagen) {
+                          <img [src]="obj_producto.imagen" alt="Vista previa" class="w-full h-full object-cover" />
+                        } @else {
+                          <span class="material-symbols-outlined text-on-surface-variant text-[28px]">image</span>
+                        }
+                      </div>
+                      <div class="flex-1 space-y-1">
+                        <label class="block font-label-sm text-on-surface-variant uppercase">O pegar enlace URL de imagen:</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="obj_producto.imagen"
+                          name="imagenUrl"
+                          placeholder="https://ejemplo.com/mi-obra.jpg"
+                          class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 px-2.5 py-1.5 font-body-sm text-on-surface" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-3 pt-2 border-t border-surface-container-high flex items-center justify-between text-on-surface-variant font-label-sm">
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[15px] text-primary">verified</span> Listo para el Dashboard</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- 3. Cédula Técnica & Trazabilidad de Mercado -->
+            <section class="space-y-4">
+              <div class="flex items-center justify-between border-b border-surface-container-high pb-2">
+                <h3 class="font-headline-sm text-on-surface m-0">3. Cédula Técnica &amp; Trazabilidad de Mercado</h3>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+
+                <!-- SECCIÓN A -->
+                <div class="bg-surface-container-low border border-surface-container-highest p-5 space-y-4">
+                  <div class="flex items-center justify-between pb-3 border-b border-surface-container-high">
+                    <span class="font-title-md text-on-surface flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-primary text-[18px]">description</span> Identidad &amp; Ficha Técnica
+                    </span>
+                    <span class="font-label-sm text-on-surface-variant">SECCIÓN A</span>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label class="block font-label-md text-on-surface">Título de la Obra <span class="text-secondary">*</span></label>
+                    <input
+                      type="text"
+                      [(ngModel)]="obj_producto.titulo"
+                      name="titulo"
+                      placeholder="Ej. Busto de Mármol Fragmentado"
+                      class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 px-3 py-2 font-headline-sm italic text-on-surface" />
+                    @if (!validar_titulo) {
+                      <span class="block font-label-sm text-error mt-1">Insertar título de la obra</span>
+                    }
+                  </div>
+
+                  <div class="space-y-1">
+                    <label class="block font-label-md text-on-surface">Artista / Autor Primario <span class="text-secondary">*</span></label>
+                    <select
+                      [(ngModel)]="obj_producto.id_artista"
+                      name="id_artista"
+                      class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 px-3 py-2 font-title-md text-on-surface">
+                      <option [value]="0" disabled>Seleccione un artista...</option>
+                      @for (itema of artista; track itema.id_artista) {
+                        <option [value]="itema.id_artista">{{ itema.nombre }}</option>
+                      }
+                    </select>
+                    @if (!validar_id_artista) {
+                      <span class="block font-label-sm text-error mt-1">Seleccionar un artista</span>
+                    }
+                  </div>
+
+                  <!-- DISCIPLINA Y ESTADO -->
+                  <div class="grid grid-cols-2 gap-3">
+                    <div class="space-y-1">
+                      <label class="block font-label-md text-on-surface">Disciplina (Filtro Dashboard)</label>
+                      <select
+                        [(ngModel)]="obj_producto.disciplina"
+                        name="disciplina"
+                        class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 px-2.5 py-2 font-body-sm text-on-surface">
+                        <option value="sculpture">Esculturas</option>
+                        <option value="painting">Pintura &amp; Óleo</option>
+                        <option value="installation">Instalación</option>
+                        <option value="digital">Arte Digital</option>
+                        <option value="photography">Fotografía</option>
+                        <option value="illustration">Ilustración</option>
+                      </select>
+                    </div>
+
+                    <div class="space-y-1">
+                      <label class="block font-label-md text-on-surface">Estado en Catálogo <span class="text-secondary">*</span></label>
+                      <select
+                        [(ngModel)]="obj_producto.estado"
+                        name="estado"
+                        class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 px-2.5 py-2 font-body-sm text-on-surface">
+                        <option value="" disabled>Seleccione un estado...</option>
+                        <option value="disponible">disponible</option>
+                        <option value="reservado">reservado</option>
+                        <option value="vendido">vendido</option>
+                      </select>
+                      @if (!validar_estado) {
+                        <span class="block font-label-sm text-error mt-1">Seleccionar un estado</span>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="space-y-1">
+                    <label class="block font-label-md text-on-surface">Memoria Curatorial (Descripción) <span class="text-secondary">*</span></label>
+                    <textarea
+                      rows="3"
+                      [(ngModel)]="obj_producto.descripcion"
+                      name="descripcion"
+                      placeholder="Técnica, dimensiones y descripción de la obra..."
+                      class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 p-3 font-body-sm text-on-surface leading-relaxed"></textarea>
+                    @if (!validar_descripcion) {
+                      <span class="block font-label-sm text-error mt-1">Insertar descripción de la obra</span>
+                    }
+                  </div>
+                </div>
+
+                <!-- SECCIÓN B -->
+                <div class="bg-surface-container-low border border-surface-container-highest p-5 space-y-4">
+                  <div class="flex items-center justify-between pb-3 border-b border-surface-container-high">
+                    <span class="font-title-md text-on-surface flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-primary text-[18px]">account_balance_wallet</span> Comercialización &amp; Registro
+                    </span>
+                    <span class="font-label-sm text-on-surface-variant">SECCIÓN B</span>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3">
+                    <div class="space-y-1">
+                      <label class="block font-label-md text-on-surface">Precio (COP) <span class="text-secondary">*</span></label>
+                      <div class="relative">
+                        <span class="absolute left-3 top-2 font-title-md text-on-surface-variant">$</span>
+                        <input
+                          type="number"
+                          [(ngModel)]="obj_producto.precio"
+                          name="precio"
+                          placeholder="0"
+                          class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 pl-7 pr-10 py-2 font-title-md text-on-surface" />
+                        <span class="absolute right-2 top-2.5 font-label-sm text-outline">COP</span>
+                      </div>
+                      @if (!validar_precio) {
+                        <span class="block font-label-sm text-error mt-1">Insertar precio válido</span>
+                      }
+                    </div>
+
+                    <div class="space-y-1">
+                      <label class="block font-label-md text-on-surface">Stock <span class="text-secondary">*</span></label>
+                      <input
+                        type="number"
+                        [(ngModel)]="obj_producto.stock"
+                        name="stock"
+                        placeholder="1"
+                        class="w-full bg-surface-container-lowest border border-surface-container-highest focus:border-primary focus:ring-0 px-3 py-2 font-body-sm text-on-surface" />
+                      @if (!validar_stock) {
+                        <span class="block font-label-sm text-error mt-1">Insertar stock</span>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="space-y-1 pt-1">
+                    <label class="block font-label-md text-on-surface">Firma SHA-256 de Autenticidad</label>
+                    <div class="flex items-center">
+                      <input
+                        type="text"
+                        readonly
+                        [value]="hashActual"
+                        class="w-full bg-surface-container border border-surface-container-highest px-2.5 py-1.5 font-mono text-[10px] text-on-surface-variant select-all" />
+                      <button
+                        type="button"
+                        (click)="regenerarHash()"
+                        class="px-2.5 py-1.5 bg-surface-container-high border border-l-0 border-surface-container-highest text-primary hover:bg-surface-variant transition-colors cursor-pointer"
+                        title="Regenerar firma">
+                        <span class="material-symbols-outlined text-[15px]">sync</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+            <!-- BOTONES DE ACCIÓN -->
+            <div class="pt-4 border-t border-surface-container-high flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div class="flex items-center gap-2 text-on-surface-variant font-body-sm">
+                <span class="material-symbols-outlined text-primary text-[18px]">lock</span>
+                <span>Encriptado bajo el manifiesto curatorial 2026.</span>
+              </div>
+
+              <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                <button
+                  type="button"
+                  (click)="mostrar_form('no ver')"
+                  class="px-5 py-2.5 border border-primary text-primary bg-transparent font-label-md hover:bg-surface-container-low transition-colors cursor-pointer">
+                  Cancelar
+                </button>
+
+                @if (!botones_form) {
+                  <button
+                    type="button"
+                    (click)="validar('guardar')"
+                    class="px-7 py-2.5 bg-primary text-surface font-label-md hover:bg-secondary transition-colors flex items-center gap-2 border-0 cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]">publish</span>
+                    <span>Publicar en Galería</span>
+                  </button>
+                }
+
+                @if (botones_form) {
+                  <button
+                    type="button"
+                    (click)="validar('editar')"
+                    class="px-7 py-2.5 bg-secondary text-surface font-label-md hover:bg-primary transition-colors flex items-center gap-2 border-0 cursor-pointer">
+                    <span class="material-symbols-outlined text-[18px]">save</span>
+                    <span>Actualizar Obra</span>
+                  </button>
+                }
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    }
+
+  </main>
+</div>
