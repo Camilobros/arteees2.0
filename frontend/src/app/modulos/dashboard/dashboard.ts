@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Venta } from '../../servicios/venta'; 
-
+import { Venta } from '../../servicios/venta';
+import { Obra } from '../../servicios/obra';
 
 interface ObraGaleria {
   id: number;
@@ -25,10 +25,6 @@ interface ObraGaleria {
   favorito: boolean;
 }
 
-
-
-
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -37,12 +33,13 @@ interface ObraGaleria {
   styleUrl: './dashboard.css',
 })
 export class Dashboard implements OnInit {
-
+  ventas: any[] = [];
+  totalVentas: number = 0;
+  totalIngresos: number = 0;
 
   currentParadigm: string = 'all';
   currentDiscipline: string = 'all';
 
-  // Lista de píldoras de disciplinas para los botones de filtro
   disciplinas = [
     { id: 'all', nombre: 'Todas las disciplinas' },
     { id: 'sculpture', nombre: 'Esculturas' },
@@ -53,10 +50,10 @@ export class Dashboard implements OnInit {
     { id: 'illustration', nombre: 'Ilustración' }
   ];
 
-  // Catálogo de obras (Humano e IA)
-  obras: ObraGaleria[] = [
+  // Obras base del diseño + las que llegan desde MySQL
+  obrasBase: ObraGaleria[] = [
     {
-      id: 1,
+      id: 101,
       origin: 'human',
       discipline: 'sculpture',
       badgeIcon: 'person',
@@ -77,7 +74,7 @@ export class Dashboard implements OnInit {
       favorito: false
     },
     {
-      id: 2,
+      id: 102,
       origin: 'human',
       discipline: 'painting',
       badgeIcon: 'brush',
@@ -98,7 +95,7 @@ export class Dashboard implements OnInit {
       favorito: false
     },
     {
-      id: 3,
+      id: 103,
       origin: 'ai',
       discipline: 'digital',
       badgeIcon: 'auto_awesome',
@@ -117,73 +114,75 @@ export class Dashboard implements OnInit {
       alt: 'Vórtice Topológico 09',
       imgFilterClass: '',
       favorito: false
-    },
-    {
-      id: 4,
-      origin: 'human',
-      discipline: 'sculpture',
-      badgeIcon: 'handyman',
-      badgeText: 'Humano',
-      categoryLabel: 'Bronce & Madera',
-      yearOrVersion: '2024',
-      title: 'Geometría en Bronce y Roble',
-      artist: 'Clara Szekely',
-      studioLocation: 'Fundición Szekely • Budapest / Barcelona',
-      description: 'Bronce fundido a la cera perdida ensamblado con roble quemado Shou Sugi Ban. 54 × 22 × 18 cm.',
-      priceLabel: 'Pieza Única',
-      price: '€2,100',
-      secondaryBtnText: 'Hacer oferta',
-      primaryBtnText: 'Comprar ahora',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAI-z2P_R7b3Iy3pLLYbF62QkfHJVt0X-2HnOxX90BAehyEJElSJJ58094pATKxj38_tB0iiPNQxiIZbHp6hO6wNvN_fKH4wiy2LAGvycX1DXVUP9wqzLZc-dRmQz-Cj35Vbfgcd642VlZ3yY6b04PjDiXaTbMNT-Sc5f_vCmB_vi8ADufA8wCg0F9DeVaOqNDMeOc6h6ZJTEf1XCW4JC1g1ZQ4hmfzbyJi5VUKYuv3-eMFxxlWnQaSlw',
-      alt: 'Geometría en Bronce y Roble',
-      imgFilterClass: 'grayscale contrast-110',
-      favorito: false
-    },
-    {
-      id: 5,
-      origin: 'ai',
-      discipline: 'sculpture',
-      badgeIcon: 'memory',
-      badgeText: 'Generado por IA',
-      categoryLabel: 'Escultura Algorítmica',
-      yearOrVersion: 'Sintético',
-      title: 'Monolito Hiperbólico IV',
-      artist: 'NeuroForm Engine',
-      studioLocation: 'Generado con StableDiffusion XL + ControlNet Depth',
-      description: 'Malla poligonal 3D OBJ/FBX de alta densidad lista para manufactura aditiva y fresado CNC.',
-      priceLabel: 'Licencia CNC',
-      price: '€95',
-      secondaryBtnText: 'Inspeccionar',
-      primaryBtnText: 'Comprar ahora',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCt8wHNQyREEg8GgUJzP3yEerUusBer7h3i_1iaebU6GLmx3itB6_fx4pifi6g8oIhrO493Y4SfwzB0AmpQkLqrUEiXiL_3tR1Ya6ZXENraXzrctNLyd49lgkxMZpFke4h2epxOC0aIWGskwjo7DJ9zO09-TAjMv82qLrg2IVGSDggVLclCGSaVurOybeN6O_AzVVvxpZCpNjj60WisEucQ3NzMw7pJnVljki5ghM38R0CkBQE-CgdW-A',
-      alt: 'Monolito Hiperbólico IV',
-      imgFilterClass: '',
-      favorito: false
-    },
-    {
-      id: 6,
-      origin: 'ai',
-      discipline: 'illustration',
-      badgeIcon: 'auto_awesome',
-      badgeText: 'Generado por IA',
-      categoryLabel: 'Síntesis Gráfica',
-      yearOrVersion: 'Serie Latente',
-      title: 'Vigía en Vaho Carmesí',
-      artist: 'Midjourney v6 Archival Seed',
-      studioLocation: 'Prompter: Studio Arcano • Tokio',
-      description: 'Impresión giclée sobre papel Hahnemühle Photo Rag 308g con firma criptográfica on-chain.',
-      priceLabel: 'Edición de 10',
-      price: '€320',
-      secondaryBtnText: 'Hacer oferta',
-      primaryBtnText: 'Comprar ahora',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDZs-K9bgpGaMuR7YO0zM_7sD90I9XJpIgiwDaev_RPA5JD9bumfh2QU-b1L219apW1zFMyeJoZ6SBFWgHEYa9vqIBHSYsZCMMftgcSRpdML8KRepIcVsnf-zu5QuSdel4_0k_k4t0TNEQKF5gp88IkFYZWYJRNsQKzeqLJUAfzAOQlY7z1IewrngJAj4Y98WRob910-tEG3vE9HRwbTgYoAGIJFQDtj0ekK7oF5-L3cZHa5Gx6AAbewQ',
-      alt: 'Vigía en Vaho Carmesí',
-      imgFilterClass: '',
-      favorito: false
     }
   ];
 
-  // Devuelve las obras filtradas dinámicamente según el botón activo (Humano/IA y Disciplina)
+  obras: ObraGaleria[] = [...this.obrasBase];
+
+  constructor(
+    private sVenta: Venta,
+    private sObra: Obra,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.consultaVentas();
+    this.consultaObrasBD();
+  }
+
+  // Carga las obras reales guardadas en MySQL y las agrega al Dashboard
+  consultaObrasBD(): void {
+    this.sObra.consulta().subscribe({
+      next: (resultado: any) => {
+        if (Array.isArray(resultado)) {
+          const obrasDeBD: ObraGaleria[] = resultado.map((item: any) => {
+            const esIA = item.origen === 'ai';
+            return {
+              id: Number(item.id_obra),
+              origin: esIA ? 'ai' : 'human',
+              discipline: item.disciplina || 'painting',
+              badgeIcon: esIA ? 'auto_awesome' : 'palette',
+              badgeText: esIA ? 'Generado por IA' : 'Humano',
+              categoryLabel: esIA ? 'Síntesis Algorítmica' : 'Obra Certificada',
+              yearOrVersion: '2026',
+              title: item.titulo,
+              artist: item.artista || 'Artista Galería Ópera',
+              studioLocation: 'Catálogo Oficial • Galería Ópera',
+              description: item.descripcion,
+              priceLabel: item.estado === 'disponible' ? 'Adquisición' : item.estado,
+              price: '$' + Number(item.precio).toLocaleString('es-CO'),
+              secondaryBtnText: esIA ? 'Inspeccionar' : 'Hacer oferta',
+              primaryBtnText: 'Comprar ahora',
+              image: item.imagen && item.imagen.trim() !== ''
+                ? item.imagen
+                : 'https://lh3.googleusercontent.com/aida-public/AB6AXuA65ahsOvDT5uzIp9f9a3hbZ-cgDBmye9pLFD9wbT_LbfBUNoEpyPNpcDIPgWnEDxaIZclKDk1rkZSinIqOCSt-TqN_ro8L_tQ0nZxXMXF2q2Qa381lf3kmg_zv0kPl6HcVlOR2cRBCSeD1ETiGFykFeBB0_C6wAYdqLVsFh4Imr06M5Ypbwj6fSYdUgfFTEltUFK91jvNNSZOO7I777gjyKznRRE8CwiaKqpdoRxO7M6rPu_4H3M9gAw',
+              alt: item.titulo,
+              imgFilterClass: '',
+              favorito: false
+            };
+          });
+          this.obras = [...obrasDeBD, ...this.obrasBase];
+          this.cdr.detectChanges();
+        }
+      },
+      error: (err: any) => console.error('Error cargando obras en Dashboard:', err)
+    });
+  }
+
+  consultaVentas(): void {
+    this.sVenta.consulta().subscribe({
+      next: (resultado: any) => {
+        this.ventas = Array.isArray(resultado) ? resultado : [];
+        this.totalVentas = this.ventas.length;
+        this.totalIngresos = this.ventas.reduce((sum, venta) => sum + parseFloat(venta.total || 0), 0);
+        this.cdr.detectChanges();
+      },
+      error: (error: any) => {
+        console.error('Error al conectar con PHP (Ventas):', error);
+      }
+    });
+  }
+
   get obrasFiltradas(): ObraGaleria[] {
     return this.obras.filter(obra => {
       const originMatch = this.currentParadigm === 'all' || obra.origin === this.currentParadigm;
@@ -192,67 +191,15 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Cambia entre 'human', 'ai' o vuelve a 'all' si se pulsa el mismo botón
   setArtParadigm(paradigm: 'human' | 'ai'): void {
-    if (this.currentParadigm === paradigm) {
-      this.currentParadigm = 'all';
-    } else {
-      this.currentParadigm = paradigm;
-    }
+    this.currentParadigm = this.currentParadigm === paradigm ? 'all' : paradigm;
   }
 
-  // Filtra por disciplina (Esculturas, Pintura, etc.)
   filterDiscipline(disciplineId: string): void {
     this.currentDiscipline = disciplineId;
   }
 
-  // Botón de corazón (Favorito)
   toggleFavorito(obra: ObraGaleria): void {
     obra.favorito = !obra.favorito;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ventas: any[] = []; 
-  
-
-  totalVentas: number = 0;
-  totalIngresos: number = 0;
-
-  constructor(private sVenta: Venta, private cdr: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-    this.consultaVentas();
-  }
-
-  consultaVentas() {
-    this.sVenta.consulta().subscribe({
-      next: (resultado: any) => {
-        console.log("Ventas recibidas de PHP:", resultado);
-        this.ventas = resultado;
-        
-        
-        this.totalVentas = this.ventas.length; 
-        
-        
-        this.totalIngresos = this.ventas.reduce((sum, venta) => sum + parseFloat(venta.total || 0), 0);
-
-        this.cdr.detectChanges();
-      },
-      error: (error: any) => {
-        console.error("Error al conectar con PHP (Ventas):", error);
-      }
-    });
   }
 }

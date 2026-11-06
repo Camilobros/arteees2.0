@@ -44,37 +44,38 @@
   background: #E4E2DE;
 }
 
+
 /* Clases de colores personalizados del tema */
-.bg-surface { background-color: var(--surface); }
-.bg-surface\/90 { background-color: rgba(251, 249, 245, 0.9); }
-.bg-surface-container-lowest { background-color: var(--surface-container-lowest); }
-.bg-surface-container-low { background-color: var(--surface-container-low); }
-.bg-surface-container { background-color: var(--surface-container); }
-.bg-surface-variant { background-color: var(--surface-variant); }
-.bg-primary { background-color: var(--primary); }
-.bg-secondary { background-color: var(--secondary); }
+.bg-surface { background-color: var(--surface) !important; }
+.bg-surface\/90 { background-color: rgba(251, 249, 245, 0.9) !important; }
+.bg-surface-container-lowest { background-color: var(--surface-container-lowest) !important; }
+.bg-surface-container-low { background-color: var(--surface-container-low) !important; }
+.bg-surface-container { background-color: var(--surface-container) !important; }
+.bg-surface-variant { background-color: var(--surface-variant) !important; }
+.bg-primary { background-color: var(--primary) !important; }
+.bg-secondary { background-color: var(--secondary) !important; }
 
-.text-surface { color: var(--surface); }
-.text-on-surface { color: var(--on-surface); }
-.text-on-surface-variant { color: var(--on-surface-variant); }
-.text-primary { color: var(--primary); }
-.text-secondary { color: var(--secondary); }
+.text-surface { color: var(--surface) !important; }
+.text-on-surface { color: var(--on-surface) !important; }
+.text-on-surface-variant { color: var(--on-surface-variant) !important; }
+.text-primary { color: var(--primary) !important; }
+.text-secondary { color: var(--secondary) !important; }
 
-.border-surface-variant { border-color: var(--surface-variant); }
-.border-primary { border-color: var(--primary); }
+.border-surface-variant { border-color: var(--surface-variant) !important; }
+.border-primary { border-color: var(--primary) !important; }
 
-/* Estados Hover personalizados */
-.hover\:bg-surface:hover { background-color: var(--surface); }
-.hover\:bg-surface-container:hover { background-color: var(--surface-container); }
-.hover\:bg-primary:hover { background-color: var(--primary); }
-.hover\:bg-secondary:hover { background-color: var(--secondary); }
-.hover\:text-surface:hover { color: var(--surface); }
-.hover\:text-primary:hover { color: var(--primary); }
-.hover\:text-secondary:hover { color: var(--secondary); }
-.hover\:border-primary:hover { border-color: var(--primary); }
+/* Estados Hover personalizados (cuando pasas el mouse por encima) */
+.hover\:bg-surface:hover { background-color: var(--surface) !important; }
+.hover\:bg-surface-container:hover { background-color: var(--surface-container) !important; }
+.hover\:bg-primary:hover { background-color: var(--primary) !important; }
+.hover\:bg-secondary:hover { background-color: var(--secondary) !important; }
+.hover\:text-surface:hover { color: var(--surface) !important; }
+.hover\:text-primary:hover { color: var(--primary) !important; }
+.hover\:text-secondary:hover { color: var(--secondary) !important; }
+.hover\:border-primary:hover { border-color: var(--primary) !important; }
 
-.group:hover .group-hover\:text-primary { color: var(--primary); }
-.group:hover .group-hover\:text-secondary { color: var(--secondary); }
+.group:hover .group-hover\:text-primary { color: var(--primary) !important; }
+.group:hover .group-hover\:text-secondary { color: var(--secondary) !important; }
 
 /* Tipografías y escalas (Newsreader & Hanken Grotesk) */
 .font-display-lg {
