@@ -52,6 +52,10 @@ export class Header implements OnInit {
     this.router.navigate([ruta]);
   }
 
+  isActive(ruta: string): boolean {
+    return this.router.url.includes(ruta);
+  }
+
   // Tu función  cerrar sesión 
   cerrar() {
     this.closeDrawer();

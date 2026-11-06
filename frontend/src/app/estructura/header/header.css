@@ -25,26 +25,26 @@
 }
 
 /* Colores de fondo y texto del tema */
-.bg-surface { background-color: var(--surface); }
-.bg-surface-container-lowest { background-color: var(--surface-container-lowest); }
-.bg-primary { background-color: var(--primary); }
-.bg-secondary { background-color: var(--secondary); }
+.bg-surface { background-color: var(--surface)!important; }
+.bg-surface-container-lowest { background-color: var(--surface-container-lowest)!important; }
+.bg-primary { background-color: var(--primary)!important; }
+.bg-secondary { background-color: var(--secondary)!important; }
 
-.text-surface { color: var(--surface); }
-.text-on-surface { color: var(--on-surface); }
-.text-on-surface-variant { color: var(--on-surface-variant); }
-.text-primary { color: var(--primary); }
-.text-secondary { color: var(--secondary); }
+.text-surface { color: var(--surface)!important; }
+.text-on-surface { color: var(--on-surface)!important; }
+.text-on-surface-variant { color: var(--on-surface-variant)!important; }
+.text-primary { color: var(--primary)!important; }
+.text-secondary { color: var(--secondary)!important; }
 
-.border-surface-variant { border-color: var(--surface-variant); }
-.border-primary { border-color: var(--primary); }
-.ring-surface { --tw-ring-color: var(--surface); }
+.border-surface-variant { border-color: var(--surface-variant)!important; }
+.border-primary { border-color: var(--primary)!important; }
+.ring-surface { --tw-ring-color: var(--surface)!important; }
 
 /* Efectos Hover */
-.hover\:bg-secondary:hover { background-color: var(--secondary); }
-.hover\:text-primary:hover { color: var(--primary); }
-.hover\:text-secondary:hover { color: var(--secondary); }
-.hover\:border-primary:hover { border-color: var(--primary); }
+.hover\:bg-secondary:hover { background-color: var(--secondary)!important; }
+.hover\:text-primary:hover { color: var(--primary)!important; }
+.hover\:text-secondary:hover { color: var(--secondary)!important; }
+.hover\:border-primary:hover { border-color: var(--primary)!important; }
 
 /* Escalas tipográficas (Newsreader & Hanken Grotesk) */
 .font-headline-md {
