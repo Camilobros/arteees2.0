@@ -25,26 +25,26 @@
 }
 
 /* Colores de fondo y texto del tema */
-.bg-surface { background-color: var(--surface)!important; }
-.bg-surface-container-lowest { background-color: var(--surface-container-lowest)!important; }
-.bg-primary { background-color: var(--primary)!important; }
-.bg-secondary { background-color: var(--secondary)!important; }
+.bg-surface { background-color: var(--surface) !important; }
+.bg-surface-container-lowest { background-color: var(--surface-container-lowest) !important; }
+.bg-primary { background-color: var(--primary) !important; }
+.bg-secondary { background-color: var(--secondary) !important; }
 
-.text-surface { color: var(--surface)!important; }
-.text-on-surface { color: var(--on-surface)!important; }
-.text-on-surface-variant { color: var(--on-surface-variant)!important; }
-.text-primary { color: var(--primary)!important; }
-.text-secondary { color: var(--secondary)!important; }
+.text-surface { color: var(--surface) !important; }
+.text-on-surface { color: var(--on-surface) !important; }
+.text-on-surface-variant { color: var(--on-surface-variant) !important; }
+.text-primary { color: var(--primary) !important; }
+.text-secondary { color: var(--secondary) !important; }
 
-.border-surface-variant { border-color: var(--surface-variant)!important; }
-.border-primary { border-color: var(--primary)!important; }
-.ring-surface { --tw-ring-color: var(--surface)!important; }
+.border-surface-variant { border-color: var(--surface-variant) !important; }
+.border-primary { border-color: var(--primary) !important; }
+.ring-surface { --tw-ring-color: var(--surface) !important; }
 
 /* Efectos Hover */
-.hover\:bg-secondary:hover { background-color: var(--secondary)!important; }
-.hover\:text-primary:hover { color: var(--primary)!important; }
-.hover\:text-secondary:hover { color: var(--secondary)!important; }
-.hover\:border-primary:hover { border-color: var(--primary)!important; }
+.hover\:bg-secondary:hover { background-color: var(--secondary) !important; }
+.hover\:text-primary:hover { color: var(--primary) !important; }
+.hover\:text-secondary:hover { color: var(--secondary) !important; }
+.hover\:border-primary:hover { border-color: var(--primary) !important; }
 
 /* Escalas tipográficas (Newsreader & Hanken Grotesk) */
 .font-headline-md {
@@ -98,4 +98,40 @@
   line-height: 14px;
   letter-spacing: 0.08em;
   font-weight: 600;
+}
+
+/* Control blindado de apertura y cierre del menú lateral */
+.header-surface {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}
+
+.hamburger-trigger {
+  position: relative !important;
+  z-index: 1001 !important;
+  pointer-events: auto !important;
+}
+
+.drawer-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+}
+
+.drawer-surface {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  transition: transform 0.3s ease-in-out !important;
+}
+
+.drawer-open {
+  transform: translateX(0) !important;
+}
+
+.drawer-closed {
+  transform: translateX(100%) !important;
 }

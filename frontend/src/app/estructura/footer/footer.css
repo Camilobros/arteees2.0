@@ -15,32 +15,32 @@
 
 /* Colores del tema */
 .bg-surface-container-low {
-  background-color: var(--surface-container-low);
+  background-color: var(--surface-container-low)!important;
 }
 
 .border-surface-variant {
-  border-color: var(--surface-variant);
+  border-color: var(--surface-variant)!important;
 }
 
 .text-primary {
-  color: var(--primary);
+  color: var(--primary)!important;
 }
 
 .text-secondary {
-  color: var(--secondary);
+  color: var(--secondary)!important;
 }
 
 .text-on-surface-variant {
-  color: var(--on-surface-variant);
+  color: var(--on-surface-variant)!important;
 }
 
 .text-outline-variant {
-  color: var(--outline-variant);
+  color: var(--outline-variant)!important;
 }
 
 /* Estados Hover */
 .hover\:text-primary:hover {
-  color: var(--primary);
+  color: var(--primary)!important;
 }
 
 .hover\:text-secondary:hover {

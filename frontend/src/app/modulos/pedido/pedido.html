@@ -1,89 +1,282 @@
-<!-- Content Header (Page header) -->
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Pedidos</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Pedidos</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
+<div class="pedido-surface min-h-screen w-full">
+  <main class="flex-1 w-full max-w-[1360px] mx-auto px-6 md:px-12 py-8">
 
-<section class="content">
-    <div class="container-fluid">
-        <hr>
-        <input type="button" value="Insertar pedido" class="btn btn-warning" (click)="insertar( )">
-        <hr>
-        <div id="tabla">
-            <div class="row">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-11">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <th>No. venta</th>
-                                <th>Fecha</th>
-                                <th>Cliente</th>
-                                <th>Descripcion</th>
-                                <th>Total</th>
-                                <th>Artista Vendedor</th>
-                                <th>Acciones</th>
-                            </tr>
-                            <tr *ngFor="let item of ventas">
-                                <td style="color: red;">{{item.id_venta}}</td>
-                                <td>{{item.fecha}}</td>
-                                <td>{{item.nombre_cliente}}</td>
-                                <td>
-                                    <input type="button" class="btn btn-outline-success btn-sm" value="Ver productos" (click)="mostrar_modal(1, item.id_venta)">
-                                </td>
-                                <td>{{item.total | currency}}</td>
-                                <td>{{item.nombre_artista}}</td>
-                                <td>
-                                    <span class="fas fa-edit" style="color: blue; cursor: pointer"
-                                        title="Editar"></span>
-                                    <span class="fas fa-minus-square" style="color: red; cursor: pointer"
-                                        title="Anular"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+    <!-- Migas de pan -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <nav class="flex items-center gap-2 text-on-surface-variant">
+        <a routerLink="/dashboard" class="font-body-sm hover:text-primary transition-colors no-underline text-on-surface-variant">Inicio</a>
+        <span class="text-[12px] opacity-40">/</span>
+        <span class="font-body-sm text-primary font-medium">Archivo de Ventas &amp; Adquisiciones</span>
+      </nav>
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 bg-surface-container border border-surface-container-high text-on-surface-variant font-label-sm self-start sm:self-auto">
+        <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+        <span>LIBRO MAYOR CURATORIAL · ACTIVO</span>
+      </div>
+    </div>
+
+    <!-- Encabezado y Botón de Nueva Venta -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-surface-container-highest">
+      <div>
+        <h1 class="font-headline-lg lg:font-display-lg text-on-surface tracking-tight m-0">
+          Registro de Ventas &amp; Pedidos
+        </h1>
+        <p class="font-body-md text-on-surface-variant max-w-2xl mt-2 font-light mb-0">
+          Control transaccional de adquisiciones de obra, certificados de venta, liquidación por artista y desglose de inventario.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3 self-start lg:self-auto">
+        <button
+          type="button"
+          (click)="insertar()"
+          class="group px-6 py-3.5 bg-primary text-surface font-label-md tracking-wider uppercase hover:bg-secondary transition-all duration-200 flex items-center gap-3 border border-primary cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+          <span>+ Registrar Nuevo Pedido</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tarjetas de Resumen Financiero -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+      <div class="p-5 bg-surface-container-lowest border border-surface-container-highest">
+        <div class="flex items-center justify-between text-on-surface-variant">
+          <span class="font-label-sm uppercase tracking-wider">Transacciones Registradas</span>
+          <span class="material-symbols-outlined text-[20px] text-primary">receipt_long</span>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="font-headline-md font-medium text-on-surface">{{ ventas.length }}</span>
+          <span class="font-label-sm text-[#137333]">Actas cerradas</span>
+        </div>
+        <span class="block mt-1 font-body-sm text-on-surface-variant">Sincronizado con tabla venta en MySQL</span>
+      </div>
+
+      <div class="p-5 bg-surface-container-lowest border border-surface-container-highest">
+        <div class="flex items-center justify-between text-on-surface-variant">
+          <span class="font-label-sm uppercase tracking-wider">Volumen Total de Ventas</span>
+          <span class="material-symbols-outlined text-[20px] text-primary">payments</span>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="font-headline-md font-medium text-on-surface">${{ ingresosTotales | number:'1.0-0' }}</span>
+          <span class="font-label-sm text-outline">COP</span>
+        </div>
+        <span class="block mt-1 font-body-sm text-on-surface-variant">Suma acumulada del archivo</span>
+      </div>
+
+      <div class="p-5 bg-surface-container-lowest border border-surface-container-highest">
+        <div class="flex items-center justify-between text-on-surface-variant">
+          <span class="font-label-sm uppercase tracking-wider">Valor Promedio por Pedido</span>
+          <span class="material-symbols-outlined text-[20px] text-secondary">analytics</span>
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="font-headline-md font-medium text-secondary">${{ ticketPromedio | number:'1.0-0' }}</span>
+          <span class="font-label-sm text-outline">COP</span>
+        </div>
+        <span class="block mt-1 font-body-sm text-on-surface-variant">Ticket promedio de colección</span>
+      </div>
+    </div>
+
+    <!-- Barra de Búsqueda -->
+    <div class="mt-10 p-4 bg-surface-container-low border border-surface-container-high flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="relative flex-1">
+        <input
+          type="text"
+          [(ngModel)]="filtroBusqueda"
+          placeholder="Buscar por número de venta, nombre del cliente o artista vendedor..."
+          class="w-full bg-surface-container-lowest border border-surface-container-highest pl-9 pr-4 py-2 font-body-sm focus:border-primary focus:ring-0" />
+        <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-on-surface-variant text-[18px]">search</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          (click)="filtroBusqueda = ''"
+          class="px-3.5 py-2 border border-surface-container-highest bg-surface-container-lowest text-on-surface-variant hover:text-primary hover:border-primary font-label-sm flex items-center gap-1.5 transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[16px]">filter_alt_off</span>
+          <span>Limpiar</span>
+        </button>
+        <button
+          type="button"
+          (click)="consulta()"
+          class="px-3.5 py-2 border border-surface-container-highest bg-surface-container-lowest text-on-surface-variant hover:text-primary hover:border-primary font-label-sm flex items-center gap-1.5 transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[16px]">sync</span>
+          <span>Actualizar</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabla de Ventas -->
+    <div class="mt-4 border border-surface-container-highest bg-surface-container-lowest overflow-x-auto custom-scroll">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-surface-container-high bg-surface-container-low font-label-sm text-on-surface-variant uppercase tracking-wider">
+            <th class="py-3.5 px-4 font-semibold"># Venta</th>
+            <th class="py-3.5 px-4 font-semibold">Fecha de Emisión</th>
+            <th class="py-3.5 px-4 font-semibold">Cliente / Coleccionista</th>
+            <th class="py-3.5 px-4 font-semibold">Artista Vendedor</th>
+            <th class="py-3.5 px-4 font-semibold">Obras Adquiridas</th>
+            <th class="py-3.5 px-4 font-semibold">Total Liquidado</th>
+            <th class="py-3.5 px-4 font-semibold text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-container-high font-body-md">
+          @for (item of ventasFiltradas; track item.id_venta) {
+            <tr class="hover:bg-surface-container-low transition-colors duration-150 bg-surface-container-lowest">
+              <td class="py-3.5 px-4 font-mono text-[13px] text-secondary font-semibold">
+                #OP-{{ item.id_venta < 10 ? '0' + item.id_venta : item.id_venta }}
+              </td>
+              <td class="py-3.5 px-4 font-body-sm text-on-surface-variant">
+                {{ item.fecha }}
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="block font-medium text-on-surface">{{ item.nombre_cliente || 'Cliente #' + item.id_cliente }}</span>
+                <span class="block font-label-sm text-on-surface-variant">Comprador Verificado</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-surface-container border border-surface-container-highest font-label-sm text-on-surface">
+                  <span class="material-symbols-outlined text-[13px] text-primary">palette</span>
+                  {{ item.nombre_artista || 'Galería Ópera' }}
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <button
+                  type="button"
+                  (click)="mostrar_modal(1, item.id_venta, item)"
+                  class="px-3 py-1.5 border border-primary bg-transparent text-primary hover:bg-primary hover:text-surface font-label-sm uppercase tracking-wider transition-colors flex items-center gap-1.5 cursor-pointer">
+                  <span class="material-symbols-outlined text-[15px]">visibility</span>
+                  <span>Ver Obras</span>
+                </button>
+              </td>
+              <td class="py-3.5 px-4 font-title-md text-primary font-bold">
+                ${{ item.total | number:'1.0-2' }}
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="inline-flex items-center gap-2">
+                  <button
+                    type="button"
+                    (click)="mostrar_modal(1, item.id_venta, item)"
+                    class="p-1.5 text-on-surface-variant hover:text-primary transition-colors bg-transparent border-0 cursor-pointer"
+                    title="Inspeccionar recibo">
+                    <span class="material-symbols-outlined text-[18px]">receipt</span>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="eliminar(item.id_venta)"
+                    class="p-1.5 text-on-surface-variant hover:text-error transition-colors bg-transparent border-0 cursor-pointer"
+                    title="Anular venta">
+                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                  </button>
                 </div>
-            </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="py-12 px-4 text-center text-on-surface-variant">
+                <span class="material-symbols-outlined text-[32px] block mx-auto mb-2 text-secondary">receipt_long</span>
+                No se encontraron ventas registradas.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- ================= MODAL EDITORIAL: DETALLE DE PRODUCTOS DE LA VENTA ================= -->
+  @if (modal) {
+    <div class="fixed inset-0 bg-[#1A1A1A]/50 backdrop-blur-[2px] z-50 flex items-center justify-center p-4">
+      <div class="bg-surface-container-lowest border border-primary w-full max-w-2xl shadow-2xl overflow-hidden animate-fade-in">
+        
+        <!-- Cabecera del Modal -->
+        <div class="px-6 py-5 bg-surface-container-low border-b border-surface-container-high flex items-center justify-between">
+          <div>
+            <span class="font-label-sm text-secondary uppercase tracking-widest block">Certificado de Adquisición</span>
+            <h3 class="font-headline-md italic text-on-surface m-0">
+              Detalle de Venta #OP-{{ ventaSeleccionada?.id_venta }}
+            </h3>
+          </div>
+          <button
+            type="button"
+            (click)="mostrar_modal(0, 0)"
+            class="p-1.5 text-on-surface-variant hover:text-primary bg-transparent border-0 cursor-pointer">
+            <span class="material-symbols-outlined text-[22px]">close</span>
+          </button>
         </div>
 
+        <!-- Metadatos del Cliente y Fecha -->
+        @if (ventaSeleccionada) {
+          <div class="px-6 py-3 bg-surface border-b border-surface-container-high grid grid-cols-1 sm:grid-cols-3 gap-2 font-body-sm">
+            <div>
+              <span class="font-label-sm text-on-surface-variant uppercase block">Cliente:</span>
+              <strong class="text-on-surface">{{ ventaSeleccionada.nombre_cliente || 'Coleccionista' }}</strong>
+            </div>
+            <div>
+              <span class="font-label-sm text-on-surface-variant uppercase block">Artista / Curador:</span>
+              <strong class="text-on-surface">{{ ventaSeleccionada.nombre_artista || 'Galería Ópera' }}</strong>
+            </div>
+            <div>
+              <span class="font-label-sm text-on-surface-variant uppercase block">Fecha:</span>
+              <strong class="text-on-surface">{{ ventaSeleccionada.fecha }}</strong>
+            </div>
+          </div>
+        }
 
+        <!-- Tabla de Obras del Pedido -->
+        <div class="p-6 overflow-x-auto">
+          @if (productos && productos.length > 0) {
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-surface-container-high font-label-sm text-on-surface-variant uppercase">
+                  <th class="py-2.5 px-3">ID Obra</th>
+                  <th class="py-2.5 px-3">Título de la Obra</th>
+                  <th class="py-2.5 px-3">Valor Unitario</th>
+                  <th class="py-2.5 px-3 text-center">Cant.</th>
+                  <th class="py-2.5 px-3 text-right">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-surface-container-high font-body-sm">
+                @for (itemp of productos; track $index) {
+                  <tr>
+                    <td class="py-3 px-3 font-mono text-on-surface-variant">#{{ itemp[0] }}</td>
+                    <td class="py-3 px-3 font-headline-sm italic text-on-surface">{{ itemp[1] }}</td>
+                    <td class="py-3 px-3">${{ itemp[2] | number:'1.0-2' }}</td>
+                    <td class="py-3 px-3 text-center font-mono">{{ itemp[3] }}</td>
+                    <td class="py-3 px-3 text-right font-title-md text-primary">${{ itemp[4] | number:'1.0-2' }}</td>
+                  </tr>
+                }
+              </tbody>
+              <tfoot>
+                <tr class="border-t-2 border-primary bg-surface-container-low">
+                  <td colspan="3" class="py-3 px-3 font-label-sm uppercase text-on-surface-variant">Total Certificado</td>
+                  <td class="py-3 px-3 text-center font-label-md text-primary">COP</td>
+                  <td class="py-3 px-3 text-right font-title-lg text-secondary font-bold">
+                    ${{ (total || ventaSeleccionada?.total || 0) | number:'1.0-2' }}
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          } @else {
+            <div class="py-8 text-center text-on-surface-variant font-body-sm">
+              <span class="material-symbols-outlined text-[28px] text-secondary block mx-auto mb-2">info</span>
+              Esta venta pertenece a los registros iniciales de prueba y no tiene matriz de obras serializada.
+              <div class="mt-2 font-title-md text-primary">
+                Total registrado en factura: ${{ ventaSeleccionada?.total | number:'1.0-2' }}
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Pie del Modal -->
+        <div class="px-6 py-4 bg-surface-container-low border-t border-surface-container-high flex justify-end">
+          <button
+            type="button"
+            (click)="mostrar_modal(0, 0)"
+            class="px-6 py-2 bg-primary text-surface hover:bg-secondary font-label-md uppercase tracking-wider transition-colors border-0 cursor-pointer">
+            Cerrar Certificado
+          </button>
+        </div>
+
+      </div>
     </div>
-</section>
-
-<!--MODAL-->
-
-<div id="verproductos" *ngIf="modal==true">
-    <table>
-        <tr>
-            <th>id_obra</th>
-            <th>titulo</th>
-            <th>v_uniario</th>
-            <th>cantidad</th>
-            <th>subtotal</th>
-        </tr>
-        <tr *ngFor="let itemp of productos">
-            <td>{{itemp[0]}}</td>
-            <td>{{itemp[1]}}</td>
-            <td>{{itemp[2] | currency}}</td>
-            <td>{{itemp[3]}}</td>
-            <td>{{itemp[4] | currency}}</td>
-        </tr>
-        <tr>
-            <td colspan="3"></td>
-            <td><b>Total:</b></td>
-            <td>{{total | currency}}</td>
-        </tr>
-    </table>
-    <input type="button" class="btn btn-secondary" value="cerrar" (click)="mostrar_modal(0,1)">
+  }
 </div>

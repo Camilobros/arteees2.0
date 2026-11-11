@@ -1,112 +1,222 @@
-<!-- Content Header (Page header) -->
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Insertar Pedidos</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Insertar Pedidos</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
+<div class="pedidoins-surface min-h-screen w-full">
+  <main class="flex-1 w-full max-w-[1360px] mx-auto px-6 md:px-12 py-8">
 
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6">
-                <div id="producto">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <caption>OBRAS</caption>
-                                <tr>
-                                    <th>Codigo</th>
-                                    <th>Nombre</th>
-                                    <th>stock</th>
-                                    <th>precio</th>
-                                    <th></th>
-                                </tr>
+    <!-- Migas de pan -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <nav class="flex items-center gap-2 text-on-surface-variant">
+        <a routerLink="/dashboard" class="font-body-sm hover:text-primary transition-colors no-underline text-on-surface-variant">Inicio</a>
+        <span class="text-[12px] opacity-40">/</span>
+        <a routerLink="/pedido" class="font-body-sm hover:text-primary transition-colors no-underline text-on-surface-variant">
+          {{ rolSesion === 'cliente' ? 'Mis Compras' : 'Ventas & Pedidos' }}
+        </a>
+        <span class="text-[12px] opacity-40">/</span>
+        <span class="font-body-sm text-primary font-medium">Adquisición de Obra</span>
+      </nav>
 
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of obras">
-                                    <td>{{item.id_obra}}</td>
-                                    <td>{{item.titulo}}</td>
-                                    <td>{{item.stock}} </td>
-                                    <td>{{item.precio | currency}}</td>
-                                    <td>
-                                        <span class="fas fa-check-square"
-                                            style="color: green; font-size: 20px; cursor:pointer"
-                                            (click)="seleccionar(item, item.id_obra)"></span>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="table-responsive">
-                    <table class="tabla">
-                        <thead>
-                            <caption>CLIENTE</caption>
-                            <tr>
-                                <td>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <input type="text" class="form-control"
-                                                placeholder="identificacion del cliente" [(ngModel)]="ident_cliete"
-                                                (keyup)="consulta_cliente()">
-                                        </div>
-                                        <div class="col-lg-9">
-                                            {{nombre_cliente}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <caption>Pedido</caption>
-                            <tr>
-                                <th>producto</th>
-                                <th>V. unitario</th>
-                                <th>cantidad</th>
-                                <th>subtotal</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let itemp of matriz_producto">
-                                <td>{{itemp[1]}}</td>
-                                <td>{{itemp[2] | currency}}</td>
-                                <td>{{itemp[3]}}</td>
-                                <td>{{itemp[4] | currency}}</td>
-                                <td>
-                                    <span class="fas fa-minus-square" style="color: red; cursor: pointer; font-size: 1.2rem;" title="Eliminar"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"></td>
-                                <td><b>Total</b></td>
-                                <td>{{total | currency}}</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <input type="button" value="Guardar Pedido" class="btn btn-warning" style="width: 100%;" (click)="guardar( )">
-            </div>
-        </div>
+      <a
+        routerLink="/pedido"
+        class="inline-flex items-center gap-1.5 font-label-sm uppercase tracking-wider text-primary hover:text-secondary no-underline">
+        <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+        <span>Ver Historial</span>
+      </a>
     </div>
-</section>
+
+    <!-- Encabezado -->
+    <div class="pb-6 border-b border-surface-container-highest mb-8">
+      <h1 class="font-headline-lg text-on-surface tracking-tight m-0">
+        Terminal de Adquisición de Obras
+      </h1>
+      <p class="font-body-md text-on-surface-variant mt-1 mb-0">
+        Selecciona las piezas del catálogo que deseas adquirir. La orden se emitirá automáticamente a nombre de tu cuenta activa.
+      </p>
+    </div>
+
+    <!-- Diseño a 2 Columnas -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- COLUMNA IZQUIERDA: CATÁLOGO DE OBRAS DISPONIBLES (7 cols) -->
+      <div class="lg:col-span-7 bg-surface-container-lowest border border-surface-container-highest">
+        <div class="p-5 bg-surface-container-low border-b border-surface-container-high flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="font-label-sm text-secondary uppercase tracking-widest block">Paso 1</span>
+            <h2 class="font-headline-sm italic text-on-surface m-0">Obras Disponibles en Galería</h2>
+          </div>
+
+          <!-- Buscador de Obras -->
+          <div class="relative w-full sm:w-64">
+            <input
+              type="text"
+              [(ngModel)]="filtroObra"
+              placeholder="Buscar obra o artista..."
+              class="w-full bg-surface-container-lowest border border-surface-container-highest pl-8 pr-3 py-1.5 font-body-sm focus:border-primary focus:ring-0" />
+            <span class="material-symbols-outlined absolute left-2 top-2 text-on-surface-variant text-[16px]">search</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto max-h-[540px] overflow-y-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-surface-container-high bg-surface font-label-sm text-on-surface-variant uppercase tracking-wider sticky top-0">
+                <th class="py-3 px-4">Código</th>
+                <th class="py-3 px-4">Obra &amp; Autor</th>
+                <th class="py-3 px-4 text-center">Stock</th>
+                <th class="py-3 px-4">Precio</th>
+                <th class="py-3 px-4 text-right">Añadir</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-surface-container-high font-body-sm">
+              @for (item of obrasFiltradas; track item.id_obra) {
+                <tr class="hover:bg-surface-container-low transition-colors">
+                  <td class="py-3.5 px-4 font-mono text-on-surface-variant">#{{ item.id_obra }}</td>
+                  <td class="py-3.5 px-4">
+                    <span class="block font-headline-sm italic text-on-surface">{{ item.titulo }}</span>
+                    <span class="block text-on-surface-variant">Por: {{ item.artista || 'Artista Galería Ópera' }}</span>
+                  </td>
+                  <td class="py-3.5 px-4 text-center font-mono">
+                    <span
+                      class="px-2 py-0.5 font-label-sm border"
+                      [ngClass]="item.stock > 0 ? 'bg-[#E6F4EA] text-[#137333] border-[#CEEAD6]' : 'bg-[#ffdad6] text-[#93000a] border-[#ffb4ab]'">
+                      {{ item.stock }} disp.
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 font-title-md text-on-surface">
+                    ${{ item.precio | number:'1.0-0' }}
+                  </td>
+                  <td class="py-3.5 px-4 text-right">
+                    <button
+                      type="button"
+                      (click)="seleccionar(item, item.id_obra)"
+                      [disabled]="item.stock <= 0"
+                      class="px-3 py-1.5 bg-primary text-surface hover:bg-secondary disabled:opacity-40 font-label-sm uppercase tracking-wider transition-colors inline-flex items-center gap-1 border-0 cursor-pointer">
+                      <span class="material-symbols-outlined text-[15px]">add_shopping_cart</span>
+                      <span>Agregar</span>
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="py-10 text-center text-on-surface-variant">
+                    No se encontraron obras con ese criterio.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- COLUMNA DERECHA: TITULAR DE LA SESIÓN Y CARRITO (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+
+        <!-- Tarjeta Automática del Comprador (Sin selector manual de otras cuentas) -->
+        <div class="bg-surface-container-lowest border border-surface-container-highest p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <span class="font-label-sm text-secondary uppercase tracking-widest block">Titular de la Compra</span>
+              <h2 class="font-headline-sm italic text-on-surface m-0">Cuenta de Sesión Activa</h2>
+            </div>
+            <span class="px-2.5 py-1 bg-surface-container border border-surface-container-highest font-label-sm uppercase text-primary flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px] text-secondary">verified_user</span>
+              {{ rolSesion === 'artista' ? 'Artista Comprador' : (rolSesion === 'admin' ? 'Administrador' : 'Coleccionista') }}
+            </span>
+          </div>
+
+          <div class="p-4 bg-surface-container-low border border-surface-container-high flex items-center justify-between gap-3">
+            <div class="space-y-1">
+              <span class="block font-title-md text-on-surface">{{ nombreSesion }}</span>
+              <span class="block font-body-sm text-on-surface-variant">{{ correoSesion || 'Sesión verificada en Galería Ópera' }}</span>
+            </div>
+            <span class="material-symbols-outlined text-[26px] text-primary">lock</span>
+          </div>
+
+          <p class="font-body-sm text-on-surface-variant m-0">
+            Por seguridad curatorial, toda orden de compra se factura exclusivamente a nombre del usuario autenticado en la sesión actual.
+          </p>
+        </div>
+
+        <!-- Bloque del Carrito / Resumen del Pedido -->
+        <div class="bg-surface-container-lowest border border-primary p-6 space-y-5 shadow-sm">
+          <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
+            <div>
+              <span class="font-label-sm text-secondary uppercase tracking-widest block">Paso 2</span>
+              <h2 class="font-headline-sm italic text-on-surface m-0">Resumen de tu Carrito</h2>
+            </div>
+            <span class="px-2.5 py-0.5 bg-primary text-surface font-label-sm uppercase">
+              {{ matriz_producto.length }} {{ matriz_producto.length === 1 ? 'Obra' : 'Obras' }}
+            </span>
+          </div>
+
+          @if (matriz_producto.length > 0) {
+            <div class="divide-y divide-surface-container-high max-h-[300px] overflow-y-auto">
+              @for (itemp of matriz_producto; track $index) {
+                <div class="py-3 flex items-center justify-between gap-3">
+                  <div class="flex-1 min-w-0">
+                    <span class="block font-headline-sm italic text-on-surface truncate">{{ itemp[1] }}</span>
+                    <span class="block font-body-sm text-on-surface-variant">
+                      Unitario: ${{ itemp[2] | number:'1.0-0' }}
+                    </span>
+                  </div>
+
+                  <!-- Controles de Cantidad (- / +) -->
+                  <div class="flex items-center border border-surface-container-highest bg-surface-container-low">
+                    <button
+                      type="button"
+                      (click)="cambiarCantidad($index, -1)"
+                      class="w-7 h-7 flex items-center justify-center text-on-surface hover:bg-primary hover:text-surface transition-colors bg-transparent border-0 cursor-pointer">
+                      -
+                    </button>
+                    <span class="px-2.5 font-mono font-body-sm text-on-surface">{{ itemp[3] }}</span>
+                    <button
+                      type="button"
+                      (click)="cambiarCantidad($index, 1)"
+                      class="w-7 h-7 flex items-center justify-center text-on-surface hover:bg-primary hover:text-surface transition-colors bg-transparent border-0 cursor-pointer">
+                      +
+                    </button>
+                  </div>
+
+                  <!-- Subtotal y Eliminar -->
+                  <div class="text-right flex items-center gap-2">
+                    <span class="font-title-md text-primary">${{ itemp[4] | number:'1.0-0' }}</span>
+                    <button
+                      type="button"
+                      (click)="eliminarDelCarrito($index)"
+                      class="p-1 text-on-surface-variant hover:text-error transition-colors bg-transparent border-0 cursor-pointer"
+                      title="Quitar del carrito">
+                      <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          } @else {
+            <div class="py-10 text-center bg-surface-container-low border border-dashed border-surface-container-highest">
+              <span class="material-symbols-outlined text-[30px] text-on-surface-variant mb-1 block">shopping_bag</span>
+              <p class="font-body-sm text-on-surface-variant m-0">
+                Tu carrito está vacío. Haz clic en <strong>"Agregar"</strong> en cualquier obra de la izquierda.
+              </p>
+            </div>
+          }
+
+          <!-- Total y Botón de Confirmación -->
+          <div class="pt-4 border-t-2 border-primary space-y-4">
+            <div class="flex items-baseline justify-between">
+              <span class="font-label-md uppercase tracking-wider text-on-surface-variant">Total a Pagar</span>
+              <span class="font-headline-md text-primary font-bold">${{ total | number:'1.0-2' }} <small class="font-label-sm text-outline">COP</small></span>
+            </div>
+
+            <button
+              type="button"
+              (click)="guardar()"
+              class="w-full py-3.5 px-6 bg-primary text-surface hover:bg-secondary font-label-md uppercase tracking-widest transition-colors flex items-center justify-center gap-2 border-0 cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">verified</span>
+              <span>Confirmar Compra como {{ nombreSesion }}</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+</div>

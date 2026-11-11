@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -10,61 +11,72 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header implements OnInit {
-  // Tus variables originales de sesión
-  nombre: any;
-  rol: any;
-
-  // Variable nueva para controlar si el menú hamburguesa está abierto o cerrado
+  nombre: any = '';
+  rol: any = '';
+  correo: any = '';
   isDrawerOpen: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {
+    // Cada vez que cambies de pantalla (ej. al entrar a Ventas y Pedidos),
+    // recarga la sesión, asegura que el menú quede destrabado y despierta a Angular
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.cargarSesion();
+        this.isDrawerOpen = false;
+        document.body.style.overflow = '';
+        this.cdr.detectChanges();
+      });
+  }
 
   ngOnInit(): void {
-    this.nombre = sessionStorage.getItem("nombre");
-    this.rol = sessionStorage.getItem("rol");
+    this.cargarSesion();
   }
 
-  // Abre el menú lateral y actualiza los datos de sesión por si acaban de loguearse
+  cargarSesion(): void {
+    this.nombre = sessionStorage.getItem('nombre');
+    this.rol = sessionStorage.getItem('rol');
+    this.correo = sessionStorage.getItem('correo');
+  }
+
+  // Abre el menú hamburguesa forzando el redibujado inmediato
   openDrawer(): void {
-    this.nombre = sessionStorage.getItem("nombre");
-    this.rol = sessionStorage.getItem("rol");
+    this.cargarSesion();
     this.isDrawerOpen = true;
-    document.body.style.overflow = 'hidden';
+    this.cdr.detectChanges();
   }
 
-  // Cierra el menú lateral
+  // Cierra el menú hamburguesa forzando el redibujado inmediato
   closeDrawer(): void {
     this.isDrawerOpen = false;
     document.body.style.overflow = '';
+    this.cdr.detectChanges();
   }
 
-  // Cierra el menú si presionas la tecla Escape
-  @HostListener('document:keydown.escape')
-  onEscapePress(): void {
-    if (this.isDrawerOpen) {
-      this.closeDrawer();
-    }
-  }
-
-  // Navega a la ruta que elijas en el menú y cierra el panel lateral
+  // Tu función irA() intacta pero asegurada con el despertador de Angular
   irA(ruta: string): void {
-    this.closeDrawer();
-    this.router.navigate([ruta]);
+    this.isDrawerOpen = false;
+    document.body.style.overflow = '';
+    this.cdr.detectChanges();
+    this.router.navigate(['/' + ruta.replace(/^\//, '')]);
   }
 
+  // Detecta en qué sección está el usuario para subrayarla en el menú
   isActive(ruta: string): boolean {
-    return this.router.url.includes(ruta);
+    return this.router.url ? this.router.url.includes(ruta) : false;
   }
 
-  // Tu función  cerrar sesión 
-  cerrar() {
-    this.closeDrawer();
-    sessionStorage.setItem("id", "");
-    sessionStorage.setItem("correo", "");
-    sessionStorage.setItem("nombre", "");
-    sessionStorage.setItem("rol", "");
-    this.nombre = "";
-    this.rol = "";
-    this.router.navigate(['login']);
+  cerrar(): void {
+    sessionStorage.clear();
+    this.nombre = null;
+    this.rol = null;
+    this.correo = null;
+    this.isDrawerOpen = false;
+    document.body.style.overflow = '';
+    this.cdr.detectChanges();
+    this.router.navigate(['/login']);
   }
 }
